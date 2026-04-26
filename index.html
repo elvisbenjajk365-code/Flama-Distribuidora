@@ -680,7 +680,7 @@ function renderCatalog(filter = 'all') {
   container.innerHTML = filtered.map((p, i) => `
     <div class="card" style="animation-delay:${i*0.04}s" data-cat="${p.cat}">
       <div class="card-img">
-        <div class="card-img-inner">${p.emoji}</div>
+        <div class="card-img-inner"><img src="${p.img}" alt="${p.name}"></div>
         <span class="card-badge">${p.cat}</span>
       </div>
       <div class="card-body">
