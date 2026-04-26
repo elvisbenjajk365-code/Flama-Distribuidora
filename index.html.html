@@ -741,7 +741,9 @@ function updateCartUI() {
     const p = products.find(x => x.id == id);
     return `
       <div class="cart-item">
-        <div class="cart-item-icon">${p.emoji}</div>
+        <div class="card-img-inner">
+  <img src="${p.img}" alt="${p.name}">
+</div>
         <div class="cart-item-info">
           <div class="cart-item-name">${p.name}</div>
           <div class="cart-item-price">$${(p.price * qty).toLocaleString('es-AR')}</div>
