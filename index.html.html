@@ -59,8 +59,11 @@
   }
 
   .logo-icon {
-    width: 44px; height: 44px;
-  }
+  width: 52px; height: 52px;
+  object-fit: contain;
+  border-radius: 8px;
+  mix-blend-mode: lighten;
+}
 
   .logo-text {
     display:flex; flex-direction:column; line-height:1;
@@ -539,11 +542,7 @@
 <!-- HEADER -->
 <header>
   <div class="logo-area">
-    <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="50" r="46" stroke="#E8650A" stroke-width="4"/>
-      <path d="M50 80 C50 80 28 65 28 45 C28 32 38 22 50 20 C44 30 46 38 52 42 C50 35 54 28 62 26 C70 30 72 42 68 52 C66 58 60 64 50 80Z" fill="#E8650A"/>
-      <path d="M50 80 C50 80 36 68 36 52 C36 44 40 38 46 35 C42 42 44 50 52 54 C48 46 52 40 58 38 C64 42 64 52 60 62 C57 68 54 74 50 80Z" fill="#FF8C2A" opacity="0.7"/>
-    </svg>
+    <img src="Logo/LogoItem.png" alt="Logo Flama" class="logo-icon" style="object-fit:contain;">
     <div class="logo-text">
       <span>FLAMA</span>
       <span>Distribuidora</span>
@@ -616,27 +615,27 @@
 <script>
 // ======== PRODUCTS ========
 const products = [
-  { id:1, name:'Lion Silver Regular', cat:'Papeles', price:1500, emoji:'📄', desc:'Caja display · Papeles regulares holográficos' },
-  { id:2, name:'Lion Unbleached', cat:'Papeles', price:1500, emoji:'🟫', desc:'Caja display · Papeles sin blanquear 1¼' },
-  { id:3, name:'Fumanchú Unbleached', cat:'Papeles', price:1100, emoji:'🤎', desc:'1¼ Brown · Rolling Papers' },
-  { id:4, name:'Lion Uva Saborizado', cat:'Papeles', price:1700, emoji:'🍇', desc:'Electric Grape · Papeles saborizados' },
-  { id:5, name:'Lion Arándano Saborizado', cat:'Papeles', price:1700, emoji:'🫐', desc:'Blueberry Moon · Papeles saborizados 1¼' },
-  { id:6, name:'Lion Chocolate', cat:'Papeles', price:1700, emoji:'🍫', desc:'Chocolate Funky · Papeles saborizados' },
-  { id:7, name:'Lion Frutilla', cat:'Papeles', price:1700, emoji:'🍓', desc:'Strawberry Bloody · Papeles saborizados' },
-  { id:8, name:'Lion Filtros Small', cat:'Filtros', price:1200, emoji:'🔵', desc:'Mini Tips Unbleached · Display x24 librets' },
-  { id:9, name:'Lion Celulosas', cat:'Celulosas', price:4000, emoji:'🔮', desc:'Transparent Rolling Paper · Display' },
-  { id:10, name:'Lion Celulosas Blister', cat:'Celulosas', price:6800, emoji:'📦', desc:'4:20 Blister x12 · Celulosas transparentes' },
-  { id:11, name:'Lion Survival KIT', cat:'Combos', price:15000, emoji:'🎒', desc:'NUEVO · Tiny tent + Tips + Celulosa + Card Grinder' },
-  { id:12, name:'Blunts Gelato', cat:'Blunts', price:5300, emoji:'🟡', desc:'Hemp Wraps Terpenes · x2 units' },
-  { id:13, name:'Blunt Gelato Berry', cat:'Blunts', price:8000, emoji:'💚', desc:'Display · Terpenes Hemp Wraps Gelato Berry' },
-  { id:14, name:'Blunt Gelato (caja)', cat:'Blunts', price:8000, emoji:'🤡', desc:'Display · Terpenes Hemp Wraps Gelato' },
-  { id:15, name:'Blunt Gelato 33', cat:'Blunts', price:8000, emoji:'🧑‍🦱', desc:'Display · Terpenes Hemp Wraps Gelato 33' },
-  { id:16, name:'Blunt KKSH', cat:'Blunts', price:5300, emoji:'🔷', desc:'Hemp Wraps Terpenes KKSH · x2 units' },
-  { id:17, name:'Blunt Shortcake', cat:'Blunts', price:5300, emoji:'🔵', desc:'Hemp Wraps Terpenes Strawberry Shortcake · x2' },
-  { id:18, name:'Blunt Tangie', cat:'Blunts', price:5300, emoji:'🟠', desc:'Hemp Wraps Terpenes Tangie · x2 units' },
-  { id:19, name:'Blunt Gorila GL', cat:'Blunts', price:5300, emoji:'🩵', desc:'Hemp Wraps Terpenes Gorila GL · x2 units' },
-  { id:20, name:'Armador Lion Rolling', cat:'Accesorios', price:6500, emoji:'🎰', desc:'Rolling machine · Varios colores' },
-  { id:21, name:'Conos Pre Armados', cat:'Accesorios', price:5000, emoji:'🔺', desc:'1¼ Cones Lion Rolling Circus · x3' },
+  { id:1, name:'Lion Silver Regular', cat:'Papeles', price:1500, img:'imagenes/productos/lion-silver-regular.jpg', desc:'Caja display · Papeles regulares holográficos' },
+  { id:2, name:'Lion Unbleached', cat:'Papeles', price:1500, img:'imagenes/productos/lion-unbleached.jpg', desc:'Caja display · Papeles sin blanquear 1¼' },
+  { id:3, name:'Fumanchú Unbleached', cat:'Papeles', price:1100, img:'imagenes/productos/fumanchu-unbleached.jpg', desc:'1¼ Brown · Rolling Papers' },
+  { id:4, name:'Lion Uva Saborizado', cat:'Papeles', price:1700, img:'imagenes/productos/lion-uva.jpg', desc:'Electric Grape · Papeles saborizados' },
+  { id:5, name:'Lion Arándano Saborizado', cat:'Papeles', price:1700, img:'imagenes/productos/lion-arandano.jpg', desc:'Blueberry Moon · Papeles saborizados 1¼' },
+  { id:6, name:'Lion Chocolate', cat:'Papeles', price:1700, img:'imagenes/productos/lion-chocolate.jpg', desc:'Chocolate Funky · Papeles saborizados' },
+  { id:7, name:'Lion Frutilla', cat:'Papeles', price:1700, img:'imagenes/productos/lion-frutilla.jpg', desc:'Strawberry Bloody · Papeles saborizados' },
+  { id:8, name:'Lion Filtros Small', cat:'Filtros', price:1200, img:'imagenes/productos/lion-filtros-small.jpg', desc:'Mini Tips Unbleached · Display x24 librets' },
+  { id:9, name:'Lion Celulosas', cat:'Celulosas', price:4000, img:'imagenes/productos/lion-celulosas.jpg', desc:'Transparent Rolling Paper · Display' },
+  { id:10, name:'Lion Celulosas Blister', cat:'Celulosas', price:6800, img:'imagenes/productos/lion-celulosas-blister.jpg', desc:'4:20 Blister x12 · Celulosas transparentes' },
+  { id:11, name:'Lion Survival KIT', cat:'Combos', price:15000, img:'imagenes/productos/lion-survival-kit.jpg', desc:'NUEVO · Tiny tent + Tips + Celulosa + Card Grinder' },
+  { id:12, name:'Blunts Gelato', cat:'Blunts', price:5300, img:'imagenes/productos/blunt-gelato.jpg', desc:'Hemp Wraps Terpenes · x2 units' },
+  { id:13, name:'Blunt Gelato Berry', cat:'Blunts', price:8000, img:'imagenes/productos/blunt-gelato-berry.jpg', desc:'Display · Terpenes Hemp Wraps Gelato Berry' },
+  { id:14, name:'Blunt Gelato (caja)', cat:'Blunts', price:8000, img:'imagenes/productos/blunt-gelato-caja.jpg', desc:'Display · Terpenes Hemp Wraps Gelato' },
+  { id:15, name:'Blunt Gelato 33', cat:'Blunts', price:8000, img:'imagenes/productos/blunt-gelato-33.jpg', desc:'Display · Terpenes Hemp Wraps Gelato 33' },
+  { id:16, name:'Blunt KKSH', cat:'Blunts', price:5300, img:'imagenes/productos/blunt-kksh.jpg', desc:'Hemp Wraps Terpenes KKSH · x2 units' },
+  { id:17, name:'Blunt Shortcake', cat:'Blunts', price:5300, img:'imagenes/productos/blunt-shortcake.jpg', desc:'Hemp Wraps Terpenes Strawberry Shortcake · x2' },
+  { id:18, name:'Blunt Tangie', cat:'Blunts', price:5300, img:'imagenes/productos/blunt-tangie.jpg', desc:'Hemp Wraps Terpenes Tangie · x2 units' },
+  { id:19, name:'Blunt Gorila GL', cat:'Blunts', price:5300, img:'imagenes/productos/blunt-gorila-gl.jpg', desc:'Hemp Wraps Terpenes Gorila GL · x2 units' },
+  { id:20, name:'Armador Lion Rolling', cat:'Accesorios', price:6500, img:'imagenes/productos/armador-lion.jpg', desc:'Rolling machine · Varios colores' },
+  { id:21, name:'Conos Pre Armados', cat:'Accesorios', price:5000, img:'imagenes/productos/conos-pre-armados.jpg', desc:'1¼ Cones Lion Rolling Circus · x3' },
 ];
 
 let cart = {};
