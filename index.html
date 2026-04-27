@@ -633,6 +633,25 @@
   opacity: 0;
   transition: opacity 0.4s ease;
 }
+.card-img-inner::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: url('imagenes/logo/LogoItem.png') center/120px no-repeat;
+
+  opacity: 0.08;
+
+  transform: rotate(-20deg);
+
+  pointer-events: none;
+
+  z-index: 2;
+
+}
 </style>
 </head>
 <body>
