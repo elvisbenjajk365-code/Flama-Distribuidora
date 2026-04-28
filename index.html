@@ -992,10 +992,146 @@
 .social-btn:hover svg {
   fill: var(--fire-light);
 }
+/* ===== AGE GATE ===== */
+#age-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1A0902;
+  transition: opacity 0.6s, visibility 0.6s;
+}
+
+#age-gate.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.gate-card {
+  background: rgba(42, 21, 6, 0.9);
+  border: 1px solid rgba(232,101,10,0.35);
+  border-radius: 24px;
+  padding: 2.5rem;
+  max-width: 420px;
+  text-align: center;
+}
+
+.gate-flame {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  margin-bottom: 1.2rem;
+  filter: drop-shadow(0 0 18px rgba(232,101,10,0.7));
+}
+
+.gate-title {
+  font-family: 'Bebas Neue';
+  font-size: 2.6rem;
+  color: #F5EDD8;
+}
+
+.gate-title em {
+  color: #E8650A;
+}
+
+.gate-subtitle {
+  color: #B08060;
+  font-size: 0.9rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.gate-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-yes, .btn-no {
+  flex: 1;
+  padding: 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Bebas Neue';
+}
+
+.btn-yes {
+  background: #E8650A;
+  color: #fff;
+  border: none;
+}
+
+.btn-no {
+  background: transparent;
+  border: 1px solid #444;
+  color: #777;
+}
+
+#blocked-screen {
+  position: fixed;
+  inset: 0;
+  background: #0F0502;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999;
+}
+
+#blocked-screen.show {
+  display: flex;
+}
 </style>
 </head>
 <body>
+<!-- ========== AGE GATE FLAMA ========== -->
+<div id="age-gate">
 
+  <div class="gate-bg" id="gateBg"></div>
+
+  <div class="gate-card">
+
+    <!-- LOGO FLAMA -->
+    <img src="/imagenes/logo/flamalogo.png" class="gate-flame" alt="Flama Logo">
+
+    <div class="gate-badge">Solo para mayores de 18</div>
+
+    <h1 class="gate-title">¿Tenés<br><em>18 años</em>?</h1>
+
+    <div class="gate-divider"></div>
+
+    <p class="gate-subtitle">
+      Este sitio comercializa parafernalia para fumadores.<br>
+      Acceso solo para mayores de edad.
+    </p>
+
+    <div class="gate-buttons">
+      <button class="btn-yes" onclick="allowAccess()">
+        SÍ, TENGO<br>18 O MÁS
+        <span>Ingresar</span>
+      </button>
+      <button class="btn-no" onclick="blockAccess()">
+        NO, SOY<br>MENOR
+        <span>Salir</span>
+      </button>
+    </div>
+
+    <p class="gate-legal">
+      Al ingresar confirmás que sos mayor de edad.
+    </p>
+
+  </div>
+</div>
+
+<!-- BLOQUEO -->
+<div id="blocked-screen">
+  <div class="blocked-icon">🚫</div>
+  <div class="blocked-title">Acceso Restringido</div>
+  <p class="blocked-text">
+    Este sitio es solo para mayores de 18 años.
+  </p>
+</div>
 <!-- HEADER -->
 <header>
   <div class="logo-area">
@@ -1400,6 +1536,34 @@ function openWhatsApp() {
   window.open(`https://wa.me/${numero}?text=${mensaje}`, '_blank');
 }
   
+  // ===== AGE GATE =====
+
+// Persistencia (mejor que sessionStorage)
+(function () {
+  if (localStorage.getItem('flama_age_ok') === '1') {
+    document.getElementById('age-gate').classList.add('hidden');
+  }
+})();
+
+function allowAccess() {
+  localStorage.setItem('flama_age_ok', '1');
+  const gate = document.getElementById('age-gate');
+  gate.style.opacity = '0';
+
+  setTimeout(() => {
+    gate.classList.add('hidden');
+  }, 500);
+}
+
+function blockAccess() {
+  const gate = document.getElementById('age-gate');
+  gate.style.opacity = '0';
+
+  setTimeout(() => {
+    gate.classList.add('hidden');
+    document.getElementById('blocked-screen').classList.add('show');
+  }, 400);
+}
 </script>
   <button class="help-fab" onclick="openHowTo()">
   <span class="fab-icon">❓</span>
