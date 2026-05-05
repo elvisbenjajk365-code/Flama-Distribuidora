@@ -1082,6 +1082,214 @@
 #blocked-screen.show {
   display: flex;
 }
+
+/* ============================================================
+   AUTH — Login + Registro
+============================================================ */
+
+/* Botones del header */
+.auth-header-btns {
+  display: flex; align-items: center; gap: 8px;
+}
+.btn-login-header {
+  background: transparent;
+  border: 1px solid rgba(232,101,10,0.45);
+  border-radius: 10px; padding: 8px 16px;
+  color: #B08060;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.88rem; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.btn-login-header:hover { border-color: #E8650A; color: #FF8C2A; background: rgba(232,101,10,0.08); }
+
+.btn-register-header {
+  background: linear-gradient(135deg, #E8650A, #C4500A);
+  border: none; border-radius: 10px; padding: 8px 16px;
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.88rem; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  box-shadow: 0 2px 10px rgba(232,101,10,0.35);
+}
+.btn-register-header:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* Usuario logueado en header */
+.user-menu-header {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+.user-name-h { font-size: 0.88rem; font-weight: 700; color: #FF8C2A; max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-rol-h  { font-size: 0.65rem; letter-spacing: 2px; color: #7A4A28; text-transform: uppercase; }
+.btn-logout-h {
+  background: transparent; border: 1px solid rgba(232,101,10,0.3); border-radius: 8px;
+  padding: 6px 12px; color: #7A4A28;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-logout-h:hover { border-color: #E8650A; color: #E8650A; }
+.btn-mayorista-h {
+  background: linear-gradient(135deg, #E8650A, #C4500A);
+  border: none; border-radius: 8px; padding: 6px 14px;
+  color: #fff; font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(232,101,10,0.3);
+}
+.btn-mayorista-h:hover { opacity: 0.9; }
+
+/* Overlay base para modales */
+.auth-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.82);
+  backdrop-filter: blur(10px);
+  z-index: 800;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+}
+.auth-overlay.open { opacity: 1; pointer-events: all; }
+
+/* Card base */
+.auth-card {
+  background: #2A1506;
+  border: 1px solid rgba(232,101,10,0.4);
+  border-radius: 24px;
+  width: 100%; max-width: 440px;
+  max-height: 92vh; overflow-y: auto;
+  transform: translateY(24px) scale(0.96);
+  transition: transform 0.35s cubic-bezier(.34,1.2,.64,1);
+  position: relative;
+  scrollbar-width: thin; scrollbar-color: #E8650A transparent;
+}
+.auth-card::-webkit-scrollbar { width: 3px; }
+.auth-card::-webkit-scrollbar-thumb { background: #E8650A; border-radius: 99px; }
+.auth-overlay.open .auth-card { transform: translateY(0) scale(1); }
+
+.auth-card-inner { padding: 2.2rem 2rem 2rem; }
+
+/* Tabs login/registro dentro del modal */
+.auth-tabs-modal {
+  display: flex; gap: 0; margin-bottom: 1.8rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px; padding: 4px;
+}
+.auth-tab-modal {
+  flex: 1; padding: 9px;
+  background: transparent; border: none; border-radius: 8px;
+  color: #7A4A28; font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.92rem; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+}
+.auth-tab-modal.active {
+  background: linear-gradient(135deg, #E8650A, #C4500A);
+  color: #fff; box-shadow: 0 2px 8px rgba(232,101,10,0.4);
+}
+
+/* Llama del modal */
+.auth-flame {
+  width: 54px; height: 54px; margin: 0 auto 1rem; display: block;
+}
+.auth-title {
+  font-family: 'Bebas Neue', cursive; font-size: 2rem; letter-spacing: 3px;
+  color: #F5EDD8; line-height: 1; text-align: center; margin-bottom: 0.25rem;
+}
+.auth-sub { font-size: 0.82rem; color: #B08060; text-align: center; margin-bottom: 1.5rem; line-height: 1.5; }
+
+/* Form groups */
+.auth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.auth-grid .full { grid-column: 1 / -1; }
+.auth-fg { display: flex; flex-direction: column; gap: 5px; }
+.auth-fg label {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 1.5px; color: #7A4A28; text-transform: uppercase;
+}
+.auth-fg input, .auth-fg select {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(232,101,10,0.25); border-radius: 9px;
+  padding: 11px 13px; color: #F5EDD8;
+  font-family: 'Barlow', sans-serif; font-size: 0.9rem;
+  outline: none; transition: border-color 0.2s; width: 100%;
+}
+.auth-fg input:focus, .auth-fg select:focus { border-color: #E8650A; }
+.auth-fg input::placeholder { color: #5C3010; }
+.auth-fg select option { background: #2A1506; }
+
+.auth-section-lbl {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 2px; color: #E8650A; text-transform: uppercase;
+  margin: 1rem 0 0.6rem; padding-bottom: 5px;
+  border-bottom: 1px solid rgba(232,101,10,0.2);
+}
+
+/* Error */
+.auth-error {
+  background: rgba(200,50,30,0.15); border: 1px solid rgba(200,50,30,0.35);
+  border-radius: 9px; padding: 10px 14px;
+  font-size: 0.83rem; color: #FF7060;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+  display: none; margin-top: 0.8rem;
+}
+.auth-error.show { display: block; }
+
+/* Submit */
+.auth-submit {
+  width: 100%; padding: 13px; margin-top: 1.2rem;
+  background: linear-gradient(135deg, #E8650A, #C4500A);
+  border: none; border-radius: 12px; color: #fff;
+  font-family: 'Bebas Neue', cursive; font-size: 1.3rem; letter-spacing: 2px;
+  cursor: pointer; transition: opacity 0.2s, transform 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.auth-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+.auth-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.auth-submit .auth-spin {
+  width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff; border-radius: 50%;
+  animation: authSpin 0.7s linear infinite; display: none;
+}
+.auth-submit.loading .auth-spin { display: block; }
+.auth-submit.loading .auth-btn-lbl { display: none; }
+@keyframes authSpin { to { transform: rotate(360deg); } }
+
+.auth-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: transparent; border: 1px solid rgba(232,101,10,0.25);
+  border-radius: 8px; color: #7A4A28; width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; cursor: pointer; transition: all 0.2s;
+}
+.auth-close:hover { border-color: #E8650A; color: #E8650A; }
+
+.auth-switch {
+  text-align: center; margin-top: 1rem;
+  font-size: 0.78rem; color: #5C3010;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+.auth-switch a { color: #FF8C2A; cursor: pointer; text-decoration: underline; }
+
+/* Pantalla post-registro */
+.post-reg-screen {
+  text-align: center; padding: 2rem 1.5rem;
+}
+.post-reg-icon { font-size: 3.5rem; margin-bottom: 1rem; animation: postPulse 2s ease-in-out infinite; }
+@keyframes postPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.07)} }
+.post-reg-title { font-family: 'Bebas Neue', cursive; font-size: 1.9rem; color: #FF8C2A; letter-spacing: 2px; margin-bottom: 0.5rem; }
+.post-reg-sub { font-size: 0.85rem; color: #B08060; line-height: 1.7; margin-bottom: 1.5rem; }
+.post-reg-info {
+  background: rgba(232,101,10,0.1); border: 1px solid rgba(232,101,10,0.25);
+  border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; text-align: left;
+}
+.post-reg-info p { font-size: 0.82rem; color: #B08060; line-height: 1.7; }
+.post-reg-info b { color: #FF8C2A; }
+.btn-wa-post {
+  width: 100%; padding: 13px;
+  background: #25D366; border: none; border-radius: 12px;
+  color: #fff; font-family: 'Bebas Neue', cursive; font-size: 1.2rem; letter-spacing: 2px;
+  cursor: pointer; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-wa-post:hover { opacity: 0.9; }
+
 </style>
 </head>
 <body>
@@ -1140,6 +1348,10 @@
       <span>FLAMA</span>
       <span>Distribuidora</span>
     </div>
+  </div>
+  <div class="auth-header-btns" id="authHeaderBtns">
+    <button class="btn-login-header"    onclick="openAuthModal('login')">🔐 Iniciar sesión</button>
+    <button class="btn-register-header" onclick="openAuthModal('register')">Registrarse</button>
   </div>
   <button class="cart-btn" onclick="toggleCart()">
     🛒 Carrito
@@ -1564,6 +1776,253 @@ function blockAccess() {
     document.getElementById('blocked-screen').classList.add('show');
   }, 400);
 }
+
+
+// ================================================================
+// AUTH — Login + Registro
+// ================================================================
+const API_URL = 'http://localhost:3001'; // → cambiar por URL Railway en producción
+
+let currentUser = null;
+
+// Verificar sesión guardada al cargar
+(function checkSession() {
+  const saved = localStorage.getItem('flama_user');
+  const token = localStorage.getItem('flama_token');
+  if (saved && token) {
+    try {
+      currentUser = JSON.parse(saved);
+      updateHeaderForUser(currentUser);
+    } catch { clearSession(); }
+  }
+})();
+
+// ── ABRIR / CERRAR ──
+function openAuthModal(tab = 'login') {
+  switchTab(tab);
+  document.getElementById('authOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeAuthModal() {
+  document.getElementById('authOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function handleAuthOverlay(e) {
+  if (e.target === document.getElementById('authOverlay')) closeAuthModal();
+}
+
+// ── TABS ──
+function switchTab(tab) {
+  const panels = ['panelLogin','panelRegister','panelPostReg'];
+  panels.forEach(p => document.getElementById(p).style.display = 'none');
+  document.getElementById('tabLoginBtn').classList.toggle('active', tab === 'login');
+  document.getElementById('tabRegBtn').classList.toggle('active',   tab === 'register');
+  if (tab === 'login')    document.getElementById('panelLogin').style.display    = 'block';
+  if (tab === 'register') document.getElementById('panelRegister').style.display = 'block';
+  if (tab === 'postReg')  document.getElementById('panelPostReg').style.display  = 'block';
+}
+
+// ── FORMAT CUIT ──
+function fmtCUIT(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,11);
+  if (v.length > 2)  v = v.slice(0,2) + '-' + v.slice(2);
+  if (v.length > 11) v = v.slice(0,11) + '-' + v.slice(11);
+  el.value = v;
+}
+
+// ── LOGIN ──
+async function submitLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('l_email').value.trim();
+  const pass  = document.getElementById('l_pass').value;
+  const btn   = document.getElementById('loginBtn');
+  const errEl = document.getElementById('loginError');
+  errEl.classList.remove('show');
+  btn.classList.add('loading'); btn.disabled = true;
+
+  try {
+    const res = await fetch('/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pass }),
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      if (res.status === 403) {
+        showAuthError('loginError', 'Tu cuenta está pendiente de aprobación. Te avisamos por mail cuando esté lista.');
+      } else {
+        showAuthError('loginError', data.error || 'Credenciales incorrectas');
+      }
+      return;
+    }
+
+    localStorage.setItem('flama_token', data.token);
+    localStorage.setItem('flama_refresh_token', data.refresh_token || '');
+    localStorage.setItem('flama_user', JSON.stringify(data.user));
+    currentUser = data.user;
+    closeAuthModal();
+    updateHeaderForUser(data.user);
+
+    if (data.user.rol === 'mayorista' || data.user.rol === 'admin') {
+      showToast('¡Bienvenido ' + data.user.nombre + '! Redirigiendo... 🔥');
+      setTimeout(() => { window.location.href = 'mayorista.html'; }, 1200);
+    } else {
+      showToast('¡Bienvenido ' + data.user.nombre + '! 🔥');
+    }
+
+  } catch(err) {
+    showAuthError('loginError', 'Error de conexión. Verificá que el backend esté corriendo.');
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+
+async function submitRegister(e) {
+  e.preventDefault();
+  const nombre    = document.getElementById('r_nombre').value.trim();
+  const cuit      = document.getElementById('r_cuit').value.trim();
+  const tipo_doc  = document.getElementById('r_tipo_doc').value;
+  const tel       = document.getElementById('r_tel').value.trim();
+  const email     = document.getElementById('r_email').value.trim();
+  const negocio   = document.getElementById('r_negocio').value.trim();
+  const tipo_neg  = document.getElementById('r_tipo_neg').value;
+  const localidad = document.getElementById('r_localidad').value.trim();
+  const pass      = document.getElementById('r_pass').value;
+  const pass2     = document.getElementById('r_pass2').value;
+  const errEl     = document.getElementById('regError');
+  errEl.classList.remove('show');
+
+  // Validaciones
+  if (pass !== pass2)       { showAuthError('regError', 'Las contraseñas no coinciden'); return; }
+  if (pass.length < 8)      { showAuthError('regError', 'La contraseña debe tener al menos 8 caracteres'); return; }
+  const cuitClean = cuit.replace(/\D/g,'');
+  if (cuitClean.length !== 11) { showAuthError('regError', 'El CUIT/CUIL debe tener 11 dígitos'); return; }
+
+  const btn = document.getElementById('regBtn');
+  btn.classList.add('loading'); btn.disabled = true;
+
+  try {
+    const res = await fetch(API_URL + '/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre, email, password: pass, rol: 'mayorista',
+        telefono: tel, localidad,
+        cuit, tipo_doc, nombre_negocio: negocio, tipo_negocio: tipo_neg,
+        activo: 0
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) { showAuthError('regError', data.error || 'Error al registrarse'); return; }
+
+    // Notificar a Flama por email
+    notifyFlamaNewReg(nombre, email, cuit, negocio, localidad, tel, tipo_neg);
+
+    // Mostrar pantalla post-registro
+    showPostReg(nombre, email, tel);
+
+  } catch(err) {
+    // Demo mode si no hay backend
+    notifyFlamaNewReg(nombre, email, cuit, negocio, localidad, tel, tipo_neg);
+    showPostReg(nombre, email, tel);
+  } finally {
+    btn.classList.remove('loading'); btn.disabled = false;
+  }
+}
+
+function showPostReg(nombre, email, tel) {
+  switchTab('postReg');
+  // Ocultar tabs (no tienen sentido en esta pantalla)
+  document.querySelector('.auth-tabs-modal').style.display = 'none';
+  document.getElementById('postRegEmail').textContent = email;
+
+  // Configurar botón WhatsApp con mensaje pre-cargado
+  const msg = encodeURIComponent(
+    `Hola, ¿cómo están? Envié mi solicitud para la lista mayorista con el siguiente mail: ${email}. Soy ${nombre}. ¿Pueden confirmarme el estado de mi cuenta? ¡Gracias!`
+  );
+  document.getElementById('btnWAPost').onclick = () => {
+    window.open('https://wa.me/5491127882290?text=' + msg, '_blank');
+  };
+}
+
+// Email a Flama cuando llega un registro nuevo
+function notifyFlamaNewReg(nombre, email, cuit, negocio, localidad, tel, tipo_neg) {
+  const EMAILJS_SERVICE_ID  = 'FlamaService';
+  const EMAILJS_TEMPLATE_ID = 'template_7zitmpg';
+  const EMAILJS_PUBLIC_KEY  = '3_tYKyvFQhEdVojwf';
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+    to_email: 'flamadistri0@gmail.com',
+    subject: `🆕 NUEVO REGISTRO MAYORISTA — ${nombre}`,
+    message: `NUEVA SOLICITUD MAYORISTA
+====================================
+Nombre    : ${nombre}
+Email     : ${email}
+CUIT/CUIL : ${cuit}
+Teléfono  : ${tel}
+Negocio   : ${negocio}
+Tipo      : ${tipo_neg}
+Localidad : ${localidad}
+====================================
+PARA APROBAR:
+  MySQL Workbench:
+  UPDATE usuarios SET activo=1 WHERE email='${email}';
+
+  O desde el panel admin en mayorista.html
+====================================`,
+    from_name: nombre,
+    from_phone: tel,
+  }).catch(err => console.warn('Email notify error:', err));
+}
+
+// ── HEADER ──
+function updateHeaderForUser(user) {
+  const authBtns = document.getElementById('authHeaderBtns');
+  if (!authBtns) return;
+  authBtns.outerHTML = `
+    <div class="user-menu-header" id="authHeaderBtns">
+      <div>
+        <div class="user-name-h">${user.nombre}</div>
+        <div class="user-rol-h">${user.rol}</div>
+      </div>
+      ${(user.rol === 'mayorista' || user.rol === 'admin')
+        ? `<button class="btn-mayorista-h" onclick="goMayorista()">🔥 Ir al Mayorista</button>`
+        : ''}
+      <button class="btn-logout-h" onclick="doLogout()">Salir</button>
+    </div>`;
+}
+
+function goMayorista() { window.location.href = 'mayorista.html'; }
+
+function doLogout() {
+  clearSession();
+  currentUser = null;
+  // Restaurar botones originales
+  const menu = document.getElementById('authHeaderBtns');
+  if (menu) menu.outerHTML = `
+    <div class="auth-header-btns" id="authHeaderBtns">
+      <button class="btn-login-header"    onclick="openAuthModal('login')">🔐 Iniciar sesión</button>
+      <button class="btn-register-header" onclick="openAuthModal('register')">Registrarse</button>
+    </div>`;
+  showToast('Sesión cerrada');
+}
+
+function clearSession() {
+  localStorage.removeItem('flama_token');
+  localStorage.removeItem('flama_refresh_token');
+  localStorage.removeItem('flama_user');
+}
+
+// ── HELPERS ──
+function showAuthError(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = '⚠ ' + msg;
+  el.classList.add('show');
+}
+
 </script>
   <button class="help-fab" onclick="openHowTo()">
   <span class="fab-icon">❓</span>
@@ -1684,5 +2143,149 @@ function blockAccess() {
 
   </div>
 </div>
+
+<!-- ===== MODAL AUTH (Login + Registro) ===== -->
+<div class="auth-overlay" id="authOverlay" onclick="handleAuthOverlay(event)">
+  <div class="auth-card">
+    <button class="auth-close" onclick="closeAuthModal()">✕</button>
+
+    <div class="auth-card-inner">
+
+      <!-- Llama -->
+      <svg class="auth-flame" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="46" stroke="#E8650A" stroke-width="3" opacity=".6"/>
+        <path d="M50 82C50 82 26 66 26 44 26 30 37 19 50 17 43 29 45 39 53 43 50 34 55 26 64 24 73 29 75 43 70 54 67 61 60 68 50 82Z" fill="url(#af1)"/>
+        <defs><linearGradient id="af1" x1="50" y1="82" x2="50" y2="17" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#C4500A"/><stop offset="100%" stop-color="#FF8C2A"/>
+        </linearGradient></defs>
+      </svg>
+
+      <!-- Tabs -->
+      <div class="auth-tabs-modal">
+        <button class="auth-tab-modal active" id="tabLoginBtn" onclick="switchTab('login')">Iniciar Sesión</button>
+        <button class="auth-tab-modal"         id="tabRegBtn"   onclick="switchTab('register')">Registrarse</button>
+      </div>
+
+      <!-- ── PANEL LOGIN ── -->
+      <div id="panelLogin">
+        <h2 class="auth-title">BIENVENIDO</h2>
+        <p class="auth-sub">Ingresá con tu cuenta mayorista</p>
+        <form onsubmit="submitLogin(event)">
+          <div class="auth-fg">
+            <label>Email</label>
+            <input type="email" id="l_email" placeholder="tu@email.com" required autocomplete="email">
+          </div>
+          <div class="auth-fg" style="margin-top:.75rem;">
+            <label>Contraseña</label>
+            <input type="password" id="l_pass" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+          <div class="auth-error" id="loginError"></div>
+          <button type="submit" class="auth-submit" id="loginBtn">
+            <span class="auth-btn-lbl">INGRESAR →</span>
+            <div class="auth-spin"></div>
+          </button>
+        </form>
+        <p class="auth-switch">¿No tenés cuenta? <a onclick="switchTab('register')">Registrate acá</a></p>
+      </div>
+
+      <!-- ── PANEL REGISTRO ── -->
+      <div id="panelRegister" style="display:none;">
+        <h2 class="auth-title">REGISTRO</h2>
+        <p class="auth-sub">Solicitá tu acceso al catálogo mayorista.<br>Tu cuenta será verificada antes de activarse.</p>
+
+        <form onsubmit="submitRegister(event)" autocomplete="off">
+
+          <div class="auth-section-lbl">Datos personales</div>
+          <div class="auth-grid">
+            <div class="auth-fg full">
+              <label>Nombre y apellido *</label>
+              <input type="text" id="r_nombre" placeholder="Juan García" required>
+            </div>
+            <div class="auth-fg">
+              <label>CUIT / CUIL *</label>
+              <input type="text" id="r_cuit" placeholder="20-12345678-9" required maxlength="13" oninput="fmtCUIT(this)">
+            </div>
+            <div class="auth-fg">
+              <label>Tipo</label>
+              <select id="r_tipo_doc">
+                <option value="CUIT">CUIT (empresa)</option>
+                <option value="CUIL">CUIL (personal)</option>
+              </select>
+            </div>
+            <div class="auth-fg">
+              <label>WhatsApp *</label>
+              <input type="tel" id="r_tel" placeholder="+54 11 1234-5678" required>
+            </div>
+            <div class="auth-fg">
+              <label>Email *</label>
+              <input type="email" id="r_email" placeholder="tu@email.com" required autocomplete="new-password">
+            </div>
+          </div>
+
+          <div class="auth-section-lbl">Datos del negocio</div>
+          <div class="auth-grid">
+            <div class="auth-fg full">
+              <label>Nombre del negocio *</label>
+              <input type="text" id="r_negocio" placeholder="Kiosco El Sol / Grow Shop XYZ" required>
+            </div>
+            <div class="auth-fg">
+              <label>Tipo de negocio</label>
+              <select id="r_tipo_neg">
+                <option value="kiosco">Kiosco</option>
+                <option value="growshop">Grow Shop</option>
+                <option value="almacen">Almacén</option>
+                <option value="revendedor">Revendedor independiente</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="auth-fg">
+              <label>Localidad *</label>
+              <input type="text" id="r_localidad" placeholder="Grand Bourg, Zona Norte" required>
+            </div>
+          </div>
+
+          <div class="auth-section-lbl">Contraseña</div>
+          <div class="auth-grid">
+            <div class="auth-fg">
+              <label>Contraseña *</label>
+              <input type="password" id="r_pass" placeholder="Mín. 8 caracteres" required minlength="8" autocomplete="new-password">
+            </div>
+            <div class="auth-fg">
+              <label>Repetir *</label>
+              <input type="password" id="r_pass2" placeholder="Repetí la contraseña" required autocomplete="new-password">
+            </div>
+          </div>
+
+          <div class="auth-error" id="regError"></div>
+          <button type="submit" class="auth-submit" id="regBtn">
+            <span class="auth-btn-lbl">ENVIAR SOLICITUD 🔥</span>
+            <div class="auth-spin"></div>
+          </button>
+        </form>
+        <p class="auth-switch">¿Ya tenés cuenta? <a onclick="switchTab('login')">Iniciá sesión</a></p>
+      </div>
+
+      <!-- ── PANEL POST-REGISTRO ── -->
+      <div id="panelPostReg" style="display:none;">
+        <div class="post-reg-screen">
+          <div class="post-reg-icon">🔥</div>
+          <div class="post-reg-title">¡SOLICITUD ENVIADA!</div>
+          <p class="post-reg-sub">Estamos revisando tu solicitud.<br>Te avisamos por mail cuando tu cuenta esté aprobada.</p>
+          <div class="post-reg-info">
+            <p>📋 <b>¿Qué pasa ahora?</b><br>
+            Nuestro equipo revisa tu <b>CUIT/CUIL</b> y los datos de tu negocio.<br>
+            El proceso tarda hasta <b>24-48 hs hábiles</b>.<br>
+            Recibirás confirmación en <b id="postRegEmail"></b></p>
+          </div>
+          <button class="btn-wa-post" id="btnWAPost">
+            💬 CONSULTAR POR WHATSAPP
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

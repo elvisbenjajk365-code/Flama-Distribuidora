@@ -1,0 +1,2616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flama Distribuidora — Mayorista</title>
+<meta name="description" content="Lista mayorista Flama Distribuidora — Lion Rolling Circus — Grand Bourg Zona Norte.">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<link rel="icon" type="image/png" href="/Logo/LogoPrincipal.png">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  .help-fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #E8650A, #C4500A);
+  border: none;
+  border-radius: 99px;
+  padding: 14px 22px;
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(232,101,10,0.45), 0 2px 8px rgba(0,0,0,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: fabEntry 0.6s 1.5s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+@keyframes fabEntry {
+  from { transform: translateY(80px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.help-fab:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 40px rgba(232,101,10,0.55), 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.help-fab .fab-icon {
+  font-size: 1.3rem;
+  animation: pulse-icon 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-icon {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.2); }
+}
+
+.help-fab .fab-dot {
+  position: absolute;
+  top: -4px; right: -4px;
+  width: 12px; height: 12px;
+  background: #FFD600;
+  border-radius: 50%;
+  border: 2px solid #2A1506;
+  animation: dot-blink 2s ease-in-out infinite;
+}
+
+@keyframes dot-blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ---- MODAL CÓMO COMPRAR ---- */
+.howto-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(8px);
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.howto-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.howto-modal {
+  background: #2A1506;
+  border: 1px solid rgba(232,101,10,0.3);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(30px) scale(0.96);
+  transition: transform 0.35s cubic-bezier(.34,1.2,.64,1);
+  scrollbar-width: thin;
+  scrollbar-color: #E8650A transparent;
+}
+
+.howto-overlay.open .howto-modal {
+  transform: translateY(0) scale(1);
+}
+
+.howto-modal::-webkit-scrollbar { width: 4px; }
+.howto-modal::-webkit-scrollbar-thumb { background: #E8650A; border-radius: 99px; }
+
+/* Header del modal */
+.howto-header {
+  padding: 2rem 2rem 1.2rem;
+  border-bottom: 1px solid rgba(232,101,10,0.2);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.howto-header-text h2 {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2rem;
+  color: #F5EDD8;
+  letter-spacing: 2px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.howto-header-text p {
+  font-size: 0.88rem;
+  color: #B08060;
+}
+
+.howto-close {
+  background: transparent;
+  border: 1px solid rgba(232,101,10,0.3);
+  border-radius: 8px;
+  color: #B08060;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.howto-close:hover { border-color: #E8650A; color: #E8650A; }
+
+/* Steps */
+.howto-steps {
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.howto-step {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  animation: stepIn 0.4s ease both;
+}
+
+.howto-step:last-child { border-bottom: none; }
+
+@keyframes stepIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.step-num {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(232,101,10,0.15);
+  border: 1px solid rgba(232,101,10,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.5rem;
+  color: #E8650A;
+  flex-shrink: 0;
+}
+
+.step-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(232,101,10,0.1);
+  border: 1px solid rgba(232,101,10,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.step-content { flex: 1; }
+
+.step-content strong {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #F5EDD8;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.step-content p {
+  font-size: 0.88rem;
+  color: #B08060;
+  line-height: 1.5;
+}
+
+.step-content p b {
+  color: #FF8C2A;
+  font-weight: 600;
+}
+
+/* Bloque de preguntas frecuentes */
+.howto-faq {
+  margin: 0 2rem 1.5rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(232,101,10,0.2);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+}
+
+.faq-item:last-child { border-bottom: none; }
+
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #F5EDD8;
+  letter-spacing: 0.3px;
+  gap: 1rem;
+  transition: color 0.2s;
+}
+
+.faq-item:hover .faq-q { color: #FF8C2A; }
+
+.faq-chevron {
+  color: #E8650A;
+  font-size: 0.8rem;
+  transition: transform 0.25s;
+  flex-shrink: 0;
+}
+
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s;
+  font-size: 0.86rem;
+  color: #B08060;
+  line-height: 1.6;
+  padding: 0 1.2rem;
+}
+
+.faq-a b { color: #FF8C2A; font-weight: 600; }
+
+.faq-item.open .faq-a {
+  max-height: 200px;
+  padding: 0 1.2rem 1rem;
+}
+
+/* CTA final */
+.howto-cta {
+  margin: 0 2rem 2rem;
+  background: linear-gradient(135deg, rgba(232,101,10,0.15), rgba(196,80,10,0.1));
+  border: 1px solid rgba(232,101,10,0.3);
+  border-radius: 14px;
+  padding: 1.2rem;
+  text-align: center;
+}
+
+.howto-cta p {
+  font-size: 0.88rem;
+  color: #B08060;
+  margin-bottom: 0.8rem;
+}
+
+.howto-cta p b { color: #FF8C2A; }
+
+.howto-cta-btn {
+  background: linear-gradient(135deg, #E8650A, #C4500A);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 28px;
+  color: #fff;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.howto-cta-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+  :root {
+    --fire: #E8650A;
+    --fire-light: #FF8C2A;
+    --fire-dark: #C4500A;
+    --brown: #2A1506;
+    --brown-mid: #3D1F08;
+    --brown-light: #5C3010;
+    --cream: #F5EDD8;
+    --cream-dark: #E8D9B8;
+    --text-light: #FFF3E0;
+    --text-muted: #B08060;
+    --card-bg: rgba(255,255,255,0.04);
+    --border: rgba(232,101,10,0.25);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--brown);
+    color: var(--text-light);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ---- BACKGROUND TEXTURE ---- */
+  body::before {
+    content:'';
+    position: fixed; inset:0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(232,101,10,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 80%, rgba(196,80,10,0.07) 0%, transparent 60%),
+      repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.005) 40px, rgba(255,255,255,0.005) 41px);
+    pointer-events:none; z-index:0;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    position: sticky; top:0; z-index: 100;
+    background: rgba(26,10,2,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+  }
+
+  .logo-area {
+    display: flex; align-items:center; gap: 14px;
+  }
+
+  .logo-icon {
+  width: 52px; height: 52px;
+  object-fit: contain;
+  border-radius: 8px;
+  mix-blend-mode: lighten;
+}
+
+  .logo-text {
+    display:flex; flex-direction:column; line-height:1;
+  }
+
+  .logo-text span:first-child {
+    font-family:'Bebas Neue'; font-size: 1.9rem; color: var(--fire); letter-spacing:2px;
+  }
+
+  .logo-text span:last-child {
+    font-family:'Barlow Condensed'; font-size: 0.72rem; letter-spacing:4px; color: var(--text-muted); text-transform:uppercase;
+  }
+
+  .cart-btn {
+    position: relative;
+    background: var(--fire);
+    border: none; border-radius:10px;
+    padding: 10px 20px;
+    color: #fff; font-family:'Barlow Condensed'; font-size:1rem; font-weight:700; letter-spacing:1px;
+    cursor: pointer;
+    display: flex; align-items:center; gap:8px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .cart-btn:hover { background: var(--fire-light); transform: translateY(-1px); }
+
+  .cart-count {
+    background: var(--brown);
+    color: var(--fire-light);
+    border-radius: 50%;
+    width: 22px; height: 22px;
+    display: flex; align-items:center; justify-content:center;
+    font-size: 0.8rem; font-weight:800;
+    transition: transform 0.3s;
+  }
+
+  .cart-count.bump { animation: bump 0.3s ease; }
+  @keyframes bump { 0%,100%{transform:scale(1)} 50%{transform:scale(1.5)} }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative; z-index:1;
+    padding: 5rem 2rem 3.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(232,101,10,0.15);
+    border: 1px solid var(--fire-dark);
+    border-radius: 99px;
+    padding: 4px 16px;
+    font-family:'Barlow Condensed'; font-size:0.85rem; letter-spacing:3px; color: var(--fire-light); text-transform:uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue';
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.9;
+    letter-spacing: 4px;
+    color: var(--cream);
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--fire);
+  }
+
+  .hero p {
+    margin-top: 1.2rem;
+    color: var(--text-muted);
+    font-size: 1.05rem; font-weight:500;
+    letter-spacing:0.5px;
+  }
+
+  /* ---- FILTERS ---- */
+  .filters {
+    position: relative; z-index:1;
+    padding: 2rem 2rem 0;
+    display: flex; flex-wrap:wrap; gap:10px; justify-content: center;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 7px 18px;
+    color: var(--text-muted);
+    font-family:'Barlow Condensed'; font-size:0.95rem; font-weight:600; letter-spacing:1px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform:uppercase;
+  }
+
+  .filter-btn:hover { border-color: var(--fire); color: var(--fire-light); }
+
+  .filter-btn.active {
+    background: var(--fire);
+    border-color: var(--fire);
+    color: #fff;
+  }
+
+  /* ---- GRID ---- */
+  .catalog {
+    position: relative; z-index:1;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    max-width: 1400px; margin: 0 auto;
+  }
+
+  /* ---- PRODUCT CARD ---- */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex; flex-direction:column;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(232,101,10,0.6);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 20px rgba(232,101,10,0.12);
+  }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .card-badge {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: var(--fire);
+    color: #fff;
+    font-family:'Barlow Condensed'; font-size:0.75rem; font-weight:700; letter-spacing:1.5px;
+    padding: 3px 10px; border-radius:99px; text-transform:uppercase;
+  }
+
+  .card-img {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: var(--brown-mid);
+    display: flex; align-items:center; justify-content:center;
+  }
+
+ .card-img-inner {
+  width:100%; height:100%;
+  display: flex; align-items: flex-end;
+  transition: transform 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-img-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  filter: drop-shadow(0px 12px 16px rgba(0,0,0,0.6));
+  transition: transform 0.4s, filter 0.4s;
+}
+
+.card:hover .card-img-inner img {
+  transform: translateY(-6px);
+  filter: drop-shadow(0px 20px 24px rgba(0,0,0,0.7));
+}
+
+  .card:hover .card-img-inner { transform: scale(1.06); }
+
+  .card-body {
+    padding: 1.2rem;
+    flex:1;
+    display:flex; flex-direction:column;
+  }
+
+  .card-cat {
+    font-family:'Barlow Condensed'; font-size:0.75rem; letter-spacing:2px; color: var(--fire); text-transform:uppercase; font-weight:700;
+    margin-bottom:4px;
+  }
+
+  .card-name {
+    font-family:'Barlow Condensed'; font-size:1.3rem; font-weight:700; color: var(--cream); line-height:1.2;
+    flex:1;
+  }
+
+  .card-desc {
+    font-size:0.82rem; color: var(--text-muted); margin-top:6px; line-height:1.4;
+  }
+
+  .card-footer {
+    padding: 0 1.2rem 1.2rem;
+    display: flex; align-items:center; justify-content:space-between;
+  }
+
+  .price {
+    font-family:'Bebas Neue'; font-size: 2rem; color: var(--fire-light); letter-spacing:1px;
+  }
+
+  .price span { font-size:1rem; color: var(--text-muted); }
+
+  .add-btn {
+    background: var(--fire);
+    border: none; border-radius: 10px;
+    padding: 10px 16px;
+    color: #fff;
+    font-family:'Barlow Condensed'; font-size:0.95rem; font-weight:700; letter-spacing:1px;
+    cursor:pointer;
+    display:flex; align-items:center; gap:6px;
+    transition: background 0.2s, transform 0.15s;
+    text-transform:uppercase;
+  }
+
+  .add-btn:hover { background: var(--fire-light); transform: scale(1.04); }
+  .add-btn:active { transform: scale(0.97); }
+
+  /* ---- CART DRAWER ---- */
+  .overlay {
+    position: fixed; inset:0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter:blur(4px);
+    z-index: 200;
+    opacity:0; pointer-events:none;
+    transition: opacity 0.3s;
+  }
+
+  .overlay.open { opacity:1; pointer-events:all; }
+
+  .drawer {
+    position: fixed; right:0; top:0; bottom:0;
+    width: min(480px, 100vw);
+    background: var(--brown-mid);
+    border-left: 1px solid var(--border);
+    z-index: 201;
+    display: flex; flex-direction:column;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+  }
+
+  .drawer.open { transform: translateX(0); }
+
+  .drawer-header {
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid var(--border);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+
+  .drawer-header h2 {
+    font-family:'Bebas Neue'; font-size:1.8rem; color:var(--cream); letter-spacing:2px;
+  }
+
+  .close-btn {
+    background:transparent; border: 1px solid var(--border); border-radius:8px;
+    color: var(--text-muted); font-size:1.3rem; width:36px; height:36px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition: all 0.2s;
+  }
+
+  .close-btn:hover { border-color:var(--fire); color:var(--fire); }
+
+  .drawer-items {
+    flex:1; overflow-y:auto; padding:1.2rem 1.5rem;
+    display:flex; flex-direction:column; gap:1rem;
+  }
+
+  .drawer-items::-webkit-scrollbar { width:4px; }
+  .drawer-items::-webkit-scrollbar-track { background:transparent; }
+  .drawer-items::-webkit-scrollbar-thumb { background:var(--fire-dark); border-radius:99px; }
+
+  .cart-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    display:flex; align-items:center; gap:1rem;
+  }
+
+  .cart-item-icon { font-size:2.2rem; }
+
+  .cart-item-info { flex:1; }
+
+  .cart-item-name {
+    font-family:'Barlow Condensed'; font-size:1.05rem; font-weight:700; color:var(--cream);
+  }
+
+  .cart-item-price {
+    font-size:0.85rem; color:var(--fire-light); font-weight:600;
+  }
+
+  .qty-control {
+    display:flex; align-items:center; gap:8px;
+  }
+
+  .qty-btn {
+    background: var(--brown-light); border:none; border-radius:6px;
+    width:28px; height:28px; color:var(--cream);
+    font-size:1.1rem; font-weight:700; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition: background 0.2s;
+  }
+
+  .qty-btn:hover { background:var(--fire); }
+
+  .qty-num {
+    font-family:'Bebas Neue'; font-size:1.3rem; color:var(--cream); min-width:24px; text-align:center;
+  }
+
+  .empty-cart {
+    text-align:center; padding:3rem 1rem; color:var(--text-muted);
+  }
+
+  .empty-cart .icon { font-size:4rem; margin-bottom:1rem; opacity:0.4; }
+
+  .drawer-footer {
+    padding: 1.2rem 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .total-row {
+    display:flex; justify-content:space-between; align-items:center;
+    margin-bottom:1.2rem;
+  }
+
+  .total-label { font-family:'Barlow Condensed'; font-size:1rem; letter-spacing:1px; color:var(--text-muted); text-transform:uppercase; }
+
+  .total-amount { font-family:'Bebas Neue'; font-size:2.2rem; color:var(--fire-light); }
+
+  .checkout-btn {
+    width:100%; padding:14px;
+    background: linear-gradient(135deg, var(--fire), var(--fire-dark));
+    border:none; border-radius:12px;
+    color:#fff; font-family:'Bebas Neue'; font-size:1.4rem; letter-spacing:2px;
+    cursor:pointer; transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .checkout-btn:hover { opacity:0.9; transform:translateY(-2px); }
+  .checkout-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+
+  /* ---- MODAL ---- */
+  .modal-overlay {
+    position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px);
+    z-index:300; display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity 0.3s;
+    padding:1rem;
+  }
+
+  .modal-overlay.open { opacity:1; pointer-events:all; }
+
+  .modal {
+    background: var(--brown-mid);
+    border: 1px solid var(--border);
+    border-radius:20px;
+    padding:2rem;
+    width:100%; max-width:500px;
+    max-height:90vh; overflow-y:auto;
+    transform: scale(0.9); transition: transform 0.3s;
+  }
+
+  .modal-overlay.open .modal { transform:scale(1); }
+
+  .modal h2 {
+    font-family:'Bebas Neue'; font-size:2rem; color:var(--cream); letter-spacing:2px; margin-bottom:0.3rem;
+  }
+
+  .modal p.sub {
+    color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem;
+  }
+
+  .form-group {
+    margin-bottom:1.2rem;
+  }
+
+  .form-group label {
+    display:block; font-family:'Barlow Condensed'; font-weight:700; letter-spacing:1px;
+    color:var(--text-muted); text-transform:uppercase; font-size:0.8rem; margin-bottom:6px;
+  }
+
+  .form-group input, .form-group textarea, .form-group select {
+    width:100%; background:rgba(255,255,255,0.07);
+    border:1px solid var(--border); border-radius:10px;
+    padding:12px 14px; color:var(--cream);
+    font-family:'Barlow'; font-size:0.95rem;
+    outline:none; transition: border-color 0.2s;
+  }
+
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--fire);
+  }
+
+  .form-group textarea { resize:vertical; min-height:80px; }
+
+  .form-group select option { background: var(--brown-mid); }
+
+  .order-summary {
+    background:rgba(255,255,255,0.04);
+    border:1px solid var(--border); border-radius:12px;
+    padding:1rem; margin-bottom:1.5rem;
+  }
+
+  .order-summary h3 {
+    font-family:'Barlow Condensed'; font-weight:700; letter-spacing:1px;
+    color:var(--text-muted); text-transform:uppercase; font-size:0.8rem; margin-bottom:0.8rem;
+  }
+
+  .order-line {
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:0.9rem; padding:4px 0;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+
+  .order-line:last-child { border:none; font-weight:700; color:var(--fire-light); margin-top:4px; }
+
+  .modal-actions {
+    display:flex; gap:1rem;
+  }
+
+  .btn-cancel {
+    flex:1; padding:12px;
+    background:transparent; border:1px solid var(--border); border-radius:10px;
+    color:var(--text-muted); font-family:'Barlow Condensed'; font-size:1rem; font-weight:700; letter-spacing:1px;
+    cursor:pointer; transition:all 0.2s;
+  }
+
+  .btn-cancel:hover { border-color:var(--fire); color:var(--fire); }
+
+  .btn-send {
+    flex:2; padding:12px;
+    background:linear-gradient(135deg, var(--fire), var(--fire-dark));
+    border:none; border-radius:10px;
+    color:#fff; font-family:'Bebas Neue'; font-size:1.3rem; letter-spacing:2px;
+    cursor:pointer; transition:opacity 0.2s, transform 0.15s;
+  }
+
+  .btn-send:hover { opacity:0.9; }
+  .btn-send:disabled { opacity:0.5; cursor:not-allowed; }
+
+  /* ---- SUCCESS ---- */
+  .success-screen {
+    text-align:center; padding:1rem;
+  }
+
+  .success-icon { font-size:4rem; margin-bottom:1rem; }
+  .success-screen h2 { font-family:'Bebas Neue'; font-size:2rem; color:var(--fire-light); letter-spacing:2px; margin-bottom:0.5rem; }
+  .success-screen p { color:var(--text-muted); line-height:1.6; }
+
+  .btn-close-success {
+    margin-top:1.5rem; padding:12px 24px;
+    background:var(--fire); border:none; border-radius:10px;
+    color:#fff; font-family:'Bebas Neue'; font-size:1.2rem; letter-spacing:2px;
+    cursor:pointer;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    position:relative; z-index:1;
+    padding: 3rem 2rem;
+    border-top:1px solid var(--border);
+    text-align:center; color:var(--text-muted);
+  }
+
+  footer .footer-logo { font-family:'Bebas Neue'; font-size:2rem; color:var(--fire); letter-spacing:3px; margin-bottom:0.5rem; }
+  footer p { font-size:0.85rem; }
+
+  /* ---- TOAST ---- */
+  .toast {
+    position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(100px);
+    background:var(--fire);
+    color:#fff; font-family:'Barlow Condensed'; font-size:1rem; font-weight:700; letter-spacing:1px;
+    padding:12px 24px; border-radius:99px;
+    z-index:500; transition:transform 0.35s cubic-bezier(.4,0,.2,1);
+    white-space:nowrap;
+  }
+
+  .toast.show { transform:translateX(-50%) translateY(0); }
+
+  /* ---- RESPONSIVE ---- */
+  @media(max-width:600px) {
+    .hero h1 { font-size:3.5rem; }
+    .catalog { grid-template-columns:1fr 1fr; gap:1rem; padding:1rem; }
+    .card-name { font-size:1.1rem; }
+  }
+  .card[data-cat="Papeles"] .card-img-inner {
+  background: linear-gradient(145deg, #1a3a2a, #2d6a45);
+}
+.card[data-cat="Celulosas"] .card-img-inner {
+  background: linear-gradient(145deg, #1a2a3a, #1d4d7a);
+}
+.card[data-cat="Blunts"] .card-img-inner {
+  background: linear-gradient(145deg, #2a1a3a, #5a2d7a);
+}
+.card[data-cat="Filtros"] .card-img-inner {
+  background: linear-gradient(145deg, #3a2a1a, #7a5a2d);
+}
+.card[data-cat="Accesorios"] .card-img-inner {
+  background: linear-gradient(145deg, #1a2a2a, #1f5f5f);
+}
+.card[data-cat="Combos"] .card-img-inner {
+  background: linear-gradient(145deg, #3a1a1a, #8a2d2d);
+}
+/* LOADER CONTENEDOR */
+.card-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  background: rgba(0,0,0,0.15);
+  backdrop-filter: blur(2px);
+}
+
+/* SVG */
+.smoke-icon {
+  width: 70px;
+  height: 70px;
+}
+
+/* círculo */
+.circle {
+  fill: none;
+  stroke: #E8650A;
+  stroke-width: 1.5;
+  opacity: 0.5;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* cigarro */
+.joint {
+  stroke: #E8650A;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* humo */
+.smoke {
+  fill: none;
+  stroke: #E8650A;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  animation: smoke 2s infinite ease-in-out;
+}
+
+/* animaciones */
+@keyframes smoke {
+  0% { stroke-dashoffset: 20; opacity: 0; }
+  50% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* imagen oculta al inicio */
+.product-img {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.card-img-inner::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: url('imagenes/logo/LogoItem.png') center/120px no-repeat;
+
+  opacity: 0.08;
+
+  transform: rotate(-20deg);
+
+  pointer-events: none;
+
+  z-index: 2;
+
+}
+/* CONTENEDOR REDES */
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+/* BOTONES */
+.social-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+
+  transition: all 0.25s ease;
+}
+
+/* ICONOS */
+.social-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--text-muted);
+  transition: fill 0.25s ease;
+}
+
+/* HOVER */
+.social-btn:hover {
+  border-color: var(--fire);
+  background: rgba(232,101,10,0.15);
+  transform: translateY(-2px);
+}
+
+.social-btn:hover svg {
+  fill: var(--fire-light);
+}
+
+/* ============================================================
+   LOGIN MODAL
+============================================================ */
+.login-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.82);
+  backdrop-filter: blur(10px);
+  z-index: 600;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+}
+.login-overlay.open { opacity: 1; pointer-events: all; }
+
+.login-card {
+  background: #2A1506;
+  border: 1px solid rgba(232,101,10,0.4);
+  border-radius: 24px;
+  padding: 2.5rem 2rem 2rem;
+  width: 100%; max-width: 400px;
+  transform: translateY(24px) scale(0.96);
+  transition: transform 0.35s cubic-bezier(.34,1.2,.64,1);
+  position: relative;
+}
+.login-overlay.open .login-card { transform: translateY(0) scale(1); }
+
+.login-flame-svg { width: 60px; height: 60px; margin: 0 auto 1.2rem; display: block; }
+
+.login-portal-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(232,101,10,0.14);
+  border: 1px solid rgba(232,101,10,0.35);
+  border-radius: 99px; padding: 4px 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 2.5px;
+  color: #FF8C2A; text-transform: uppercase; margin-bottom: 1rem;
+}
+
+.login-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2.2rem; letter-spacing: 3px;
+  color: #F5EDD8; line-height: 1; text-align: center; margin-bottom: 0.3rem;
+}
+.login-sub { font-size: 0.85rem; color: #B08060; text-align: center; margin-bottom: 1.8rem; }
+
+.login-form { display: flex; flex-direction: column; gap: 1rem; }
+
+.lf-group label {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px;
+  color: #7A4A28; text-transform: uppercase; margin-bottom: 5px;
+}
+.lf-group input {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(232,101,10,0.25);
+  border-radius: 10px; padding: 12px 14px;
+  color: #F5EDD8; font-family: 'Barlow', sans-serif; font-size: 0.95rem;
+  outline: none; transition: border-color 0.2s;
+}
+.lf-group input:focus { border-color: #E8650A; }
+.lf-group input::placeholder { color: #5C3010; }
+
+.login-error {
+  background: rgba(200,50,30,0.15);
+  border: 1px solid rgba(200,50,30,0.35);
+  border-radius: 9px; padding: 10px 14px;
+  font-size: 0.85rem; color: #FF7060;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+  display: none;
+}
+.login-error.show { display: block; }
+
+.login-submit {
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, #E8650A, #C4500A);
+  border: none; border-radius: 12px;
+  color: #fff; font-family: 'Bebas Neue', cursive;
+  font-size: 1.35rem; letter-spacing: 2px;
+  cursor: pointer; transition: opacity 0.2s, transform 0.15s;
+  margin-top: 0.3rem;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.login-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+.login-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.spin {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff; border-radius: 50%;
+  animation: spin 0.7s linear infinite; display: none;
+}
+.login-submit.loading .spin { display: block; }
+.login-submit.loading .btn-label { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.login-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: transparent; border: 1px solid rgba(232,101,10,0.25);
+  border-radius: 8px; color: #7A4A28;
+  width: 32px; height: 32px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; transition: all 0.2s;
+}
+.login-close:hover { border-color: #E8650A; color: #E8650A; }
+
+/* Header cuando está logueado */
+.user-menu { display: flex; align-items: center; gap: 10px; font-family: 'Barlow Condensed', sans-serif; }
+.user-name { font-size: 0.88rem; font-weight: 700; color: #FF8C2A; letter-spacing: 0.5px; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-rol { font-size: 0.68rem; letter-spacing: 1.5px; color: #7A4A28; text-transform: uppercase; }
+.logout-btn {
+  background: transparent; border: 1px solid rgba(232,101,10,0.3); border-radius: 8px;
+  padding: 6px 12px; color: #7A4A28;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s;
+}
+.logout-btn:hover { border-color: #E8650A; color: #E8650A; }
+
+/* Pantalla acceso denegado */
+#access-denied {
+  display: none; position: fixed; inset: 0; z-index: 500;
+  background: #1E0D03;
+  flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 2rem;
+}
+#access-denied.show { display: flex; }
+.ad-icon { font-size: 4rem; margin-bottom: 1.5rem; opacity: 0.4; }
+.ad-title { font-family: 'Bebas Neue', cursive; font-size: 2.5rem; color: #5C3010; letter-spacing: 3px; margin-bottom: 0.8rem; }
+.ad-sub { color: #3D2010; font-size: 0.9rem; max-width: 340px; line-height: 1.6; margin-bottom: 1.5rem; }
+.ad-login-btn {
+  background: linear-gradient(135deg, #E8650A, #C4500A);
+  border: none; border-radius: 10px; padding: 13px 30px;
+  color: #fff; font-family: 'Bebas Neue', cursive;
+  font-size: 1.2rem; letter-spacing: 2px; cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.ad-login-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+</style>
+<!-- MAYORISTA EXTRA CSS -->
+<style>
+/* === BADGE MAYORISTA HEADER === */
+.mayor-badge {
+  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, #E8650A, #C4500A);
+  font-family: 'Bebas Neue', cursive; font-size: 1rem; letter-spacing: 2px;
+  padding: 6px 16px; border-radius: 8px; color: #fff; flex-shrink: 0;
+  box-shadow: 0 2px 12px rgba(232,101,10,0.4);
+}
+
+/* === BOTÓN LOGIN (placeholder) === */
+.login-btn {
+  display: flex; align-items: center; gap: 7px;
+  background: transparent;
+  border: 1px solid rgba(232,101,10,0.45);
+  border-radius: 10px; padding: 8px 16px;
+  color: #B08060; font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.88rem; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.login-btn:hover { border-color: #E8650A; color: #FF8C2A; background: rgba(232,101,10,0.08); }
+.login-btn .lock-icon { font-size: 0.95rem; }
+
+/* === HERO MAYORISTA === */
+.hero-mayor-tag {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(232,101,10,0.2), rgba(196,80,10,0.15));
+  border: 1px solid rgba(232,101,10,0.5);
+  border-radius: 99px; padding: 5px 20px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.8rem; letter-spacing: 3px; color: #FF8C2A; text-transform: uppercase;
+  margin-bottom: 1rem; font-weight: 700;
+}
+
+/* === BANNER MÍNIMO === */
+.min-banner {
+  background: linear-gradient(90deg, rgba(232,101,10,0.18), rgba(232,101,10,0.1), rgba(232,101,10,0.18));
+  border-bottom: 1px solid rgba(232,101,10,0.3);
+  padding: 0.85rem 2rem; text-align: center;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem;
+  font-weight: 700; letter-spacing: 1px; color: #F5EDD8;
+}
+.min-banner span { color: #FF8C2A; font-size: 1.05rem; }
+
+/* === BÚSQUEDA === */
+.search-bar {
+  position: relative; z-index: 1;
+  padding: 1.5rem 2rem 0.5rem;
+}
+.search-wrap { position: relative; max-width: 500px; }
+.search-wrap input {
+  width: 100%; background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(232,101,10,0.25); border-radius: 10px;
+  padding: 11px 14px 11px 40px; color: #F5EDD8;
+  font-family: 'Barlow', sans-serif; font-size: 0.92rem;
+  outline: none; transition: border-color 0.2s;
+}
+.search-wrap input:focus { border-color: #E8650A; }
+.search-wrap input::placeholder { color: #B08060; }
+.search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: #B08060; font-size: 0.9rem; pointer-events: none; }
+
+/* === RESULTS BAR === */
+.results-bar {
+  position: relative; z-index: 1;
+  padding: 0.4rem 2rem 0.2rem;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; color: #7A4A28; letter-spacing: 0.5px;
+}
+
+/* === CARD MAYORISTA MODS === */
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 0.5rem; }
+.tag {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem;
+  font-weight: 700; letter-spacing: 0.8px; padding: 2px 8px;
+  border-radius: 5px; text-transform: uppercase;
+}
+.tag-min { background: rgba(232,101,10,0.15); color: #FF8C2A; border: 1px solid rgba(232,101,10,0.25); }
+.tag-caja { background: rgba(255,255,255,0.06); color: #B08060; border: 1px solid rgba(255,255,255,0.1); }
+.card-art { font-family: 'Barlow Condensed',sans-serif; font-size: 0.68rem; letter-spacing: 1px; color: #7A4A28; margin-top: 3px; }
+
+.qty-controls { display: flex; align-items: center; gap: 6px; margin-bottom: 0.6rem; }
+.qty-btn-card {
+  background: #5C3010; border: none; border-radius: 7px;
+  width: 30px; height: 30px; color: #F5EDD8; font-size: 1.1rem; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.qty-btn-card:hover { background: #E8650A; }
+.qty-num-card {
+  font-family: 'Bebas Neue', cursive; font-size: 1.4rem; color: #F5EDD8;
+  min-width: 36px; text-align: center;
+}
+.caja-btn {
+  margin-left: 4px;
+  background: rgba(232,101,10,0.15); border: 1px solid rgba(232,101,10,0.35); border-radius: 7px;
+  padding: 4px 10px; color: #FF8C2A;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; transition: background 0.2s; flex-shrink: 0; white-space: nowrap;
+}
+.caja-btn:hover { background: rgba(232,101,10,0.3); }
+.card-subtotal {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; color: #B08060;
+  text-align: right; margin-bottom: 0.4rem; min-height: 1rem;
+}
+.add-btn:disabled { background: #3D1F08; color: #7A4A28; cursor: not-allowed; transform: none !important; }
+
+/* === DRAWER MAYORISTA === */
+.drawer-title-badge {
+  background: linear-gradient(135deg,#E8650A,#C4500A);
+  font-family:'Barlow Condensed',sans-serif; font-size:.7rem; font-weight:700; letter-spacing:2px;
+  padding: 2px 10px; border-radius: 6px; color: #fff; text-transform: uppercase;
+  margin-left: 8px; vertical-align: middle;
+}
+
+/* === BARRA MÍNIMO === */
+.min-progress-wrap {
+  padding: 0.9rem 1.5rem; border-bottom: 1px solid rgba(232,101,10,0.2);
+  background: rgba(0,0,0,0.15);
+}
+.min-progress-label {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.5px; margin-bottom: 0.5rem;
+}
+.min-progress-label .ml { color: #B08060; }
+.min-progress-label .mr { color: #FF8C2A; font-weight: 700; font-size: 0.88rem; }
+.progress-bar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg,#C4500A,#FF8C2A); border-radius: 99px; transition: width 0.45s ease; }
+.min-missing { font-family:'Barlow Condensed',sans-serif; font-size:.8rem; color:#FF6B35; margin-top:.4rem; }
+.min-ok { font-family:'Barlow Condensed',sans-serif; font-size:.8rem; color:#4CAF50; margin-top:.4rem; }
+
+.checkout-btn:disabled {
+  background: linear-gradient(135deg,#3D1F08,#2A1506) !important;
+  color: #7A4A28 !important; cursor: not-allowed; transform: none !important; opacity: 1 !important;
+  font-size: 0.9rem; letter-spacing: 1px;
+}
+
+/* === CART ITEM MAYORISTA === */
+.ci-img-mayor {
+  width: 44px; height: 44px; border-radius: 7px; object-fit: cover;
+  background: #3D1F08; flex-shrink: 0;
+}
+.ci-remove {
+  background: transparent; border: none; color: #5C3010; font-size: 1.1rem;
+  cursor: pointer; padding: 4px; transition: color 0.2s; flex-shrink: 0;
+}
+.ci-remove:hover { color: #E8650A; }
+
+/* === MODAL MAYORISTA === */
+.modal-mayorista-header {
+  background: linear-gradient(135deg, rgba(232,101,10,0.18), rgba(196,80,10,0.12));
+  border: 1px solid rgba(232,101,10,0.35);
+  border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.modal-mayorista-header .icon { font-size: 2rem; }
+.modal-mayorista-header h3 {
+  font-family: 'Bebas Neue', cursive; font-size: 1.5rem; color: #FF8C2A;
+  letter-spacing: 2px; line-height: 1; margin-bottom: 2px;
+}
+.modal-mayorista-header p { font-size: 0.8rem; color: #B08060; }
+
+.order-detail-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.order-detail-table thead tr {
+  background: rgba(232,101,10,0.12);
+  border-bottom: 1px solid rgba(232,101,10,0.3);
+}
+.order-detail-table th {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; color: #B08060;
+  padding: 6px 8px; text-align: left; font-size: 0.72rem;
+}
+.order-detail-table td {
+  padding: 6px 8px; color: #F5EDD8; border-bottom: 1px solid rgba(255,255,255,0.04);
+  vertical-align: top;
+}
+.order-detail-table tr:last-child td { border-bottom: none; }
+.order-detail-table .td-total {
+  font-family: 'Bebas Neue', cursive; font-size: 1rem; color: #FF8C2A; text-align: right;
+}
+.order-total-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.7rem 0.8rem; margin-top: 0.5rem;
+  background: rgba(232,101,10,0.1); border: 1px solid rgba(232,101,10,0.25);
+  border-radius: 9px;
+}
+.order-total-row span:first-child { font-family:'Barlow Condensed',sans-serif; font-weight:700; color:#B08060; letter-spacing:1px; text-transform:uppercase; }
+.order-total-row span:last-child { font-family:'Bebas Neue',cursive; font-size:1.6rem; color:#FF8C2A; }
+
+/* === GATE BADGE === */
+.gate-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(232,101,10,0.14); border: 1px solid rgba(232,101,10,0.4);
+  border-radius: 99px; padding: 5px 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 3px;
+  color: #FF8C2A; text-transform: uppercase; margin-bottom: 1rem;
+}
+.gate-divider {
+  width: 60px; height: 2px;
+  background: linear-gradient(90deg, transparent, #E8650A, transparent);
+  margin: 0.8rem auto 1.2rem;
+}
+
+@media(max-width:600px) {
+  .mayor-badge span { display: none; }
+  .login-btn span { display: none; }
+}
+
+/* ============================================================
+   COLORES POR CATEGORÍA
+============================================================ */
+.card-img[data-cat="Papeles"]     { background: linear-gradient(135deg,#1a1000,#3d2800); }
+.card-img[data-cat="Filtros"]     { background: linear-gradient(135deg,#001a0d,#003d1a); }
+.card-img[data-cat="Blunts"]      { background: linear-gradient(135deg,#1a0010,#3d0028); }
+.card-img[data-cat="Celulosas"]   { background: linear-gradient(135deg,#00101a,#00283d); }
+.card-img[data-cat="Conos"]       { background: linear-gradient(135deg,#0d1a00,#1e3d00); }
+.card-img[data-cat="Bandejas"]    { background: linear-gradient(135deg,#1a1500,#3d3000); }
+.card-img[data-cat="Accesorios"]  { background: linear-gradient(135deg,#0d0d1a,#1e1e3d); }
+.card-img[data-cat="BoobleHeads"] { background: linear-gradient(135deg,#1a000d,#3d0020); }
+.card-img[data-cat="Picadores"]   { background: linear-gradient(135deg,#001515,#003333); }
+.card-img[data-cat="Decoracion"]  { background: linear-gradient(135deg,#15001a,#30003d); }
+.card-img[data-cat="Combos"]      { background: linear-gradient(135deg,#1a0800,#3d1800); }
+.card-img[data-cat="Encendedor"]  { background: linear-gradient(135deg,#1a0000,#3d0000); }
+.card-img[data-cat="Armadores"]   { background: linear-gradient(135deg,#001a1a,#003d3d); }
+.card-img[data-cat="Almacenaje"]  { background: linear-gradient(135deg,#0a1a00,#1a3d00); }
+.card-img[data-cat="Coleccionables"] { background: linear-gradient(135deg,#1a001a,#3d003d); }
+
+.card-badge[data-cat="Armadores"]    { background: rgba(0,180,180,0.85);  color:#fff; }
+.card-badge[data-cat="Almacenaje"]   { background: rgba(80,180,0,0.85);   color:#fff; }
+.card-badge[data-cat="Coleccionables"] { background: rgba(180,0,180,0.85); color:#fff; }
+
+/* Badge colors por categoría */
+.card-badge[data-cat="Papeles"]     { background: rgba(232,170,10,0.85);  color:#fff; }
+.card-badge[data-cat="Filtros"]     { background: rgba(10,180,80,0.85);   color:#fff; }
+.card-badge[data-cat="Blunts"]      { background: rgba(180,10,80,0.85);   color:#fff; }
+.card-badge[data-cat="Celulosas"]   { background: rgba(10,120,200,0.85);  color:#fff; }
+.card-badge[data-cat="Conos"]       { background: rgba(80,160,10,0.85);   color:#fff; }
+.card-badge[data-cat="Bandejas"]    { background: rgba(200,160,10,0.85);  color:#fff; }
+.card-badge[data-cat="Accesorios"]  { background: rgba(80,80,200,0.85);   color:#fff; }
+.card-badge[data-cat="BoobleHeads"] { background: rgba(200,10,100,0.85);  color:#fff; }
+.card-badge[data-cat="Picadores"]   { background: rgba(10,160,160,0.85);  color:#fff; }
+.card-badge[data-cat="Decoracion"]  { background: rgba(140,10,200,0.85);  color:#fff; }
+.card-badge[data-cat="Combos"]      { background: rgba(232,101,10,0.85);  color:#fff; }
+.card-badge[data-cat="Encendedor"]  { background: rgba(220,30,30,0.85);   color:#fff; }
+
+
+/* ── Usuario en header mayorista ── */
+.user-menu-mayor {
+  display: flex; align-items: center; gap: 8px;
+}
+.ap-open-btn {
+  background: rgba(232,101,10,0.2); border: 1px solid rgba(232,101,10,0.4);
+  border-radius: 8px; padding: 6px 12px; color: #FF8C2A;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s;
+}
+.ap-open-btn:hover { background: rgba(232,101,10,0.35); }
+.mayor-logout-btn {
+  background: transparent; border: 1px solid rgba(232,101,10,0.3); border-radius: 8px;
+  padding: 6px 12px; color: #7A4A28;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s;
+}
+.mayor-logout-btn:hover { border-color: #E8650A; color: #E8650A; }
+
+/* ── PANEL ADMIN ── */
+#admin-panel {
+  display: none; position: fixed; inset: 0; z-index: 500;
+  background: #1E0D03; overflow-y: auto; padding: 0;
+}
+#admin-panel.show { display: block; }
+
+.ap-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+.ap-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 2rem; padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(232,101,10,0.25);
+  flex-wrap: wrap; gap: 1rem;
+}
+.ap-title {
+  font-family: 'Bebas Neue', cursive; font-size: 2rem;
+  color: #FF8C2A; letter-spacing: 3px;
+}
+.ap-back {
+  background: transparent; border: 1px solid rgba(232,101,10,0.3); border-radius: 9px;
+  padding: 9px 18px; color: #B08060;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s;
+}
+.ap-back:hover { border-color: #E8650A; color: #E8650A; }
+
+.ap-stats {
+  display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+}
+.ap-stat {
+  background: rgba(232,101,10,0.1); border: 1px solid rgba(232,101,10,0.2);
+  border-radius: 12px; padding: .8rem 1.2rem; min-width: 120px;
+}
+.ap-stat-num { font-family: 'Bebas Neue', cursive; font-size: 2rem; color: #FF8C2A; line-height: 1; }
+.ap-stat-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 1.5px; color: #7A4A28; text-transform: uppercase; }
+
+.ap-section-title {
+  font-family: 'Bebas Neue', cursive; font-size: 1.3rem; color: #F5EDD8;
+  letter-spacing: 2px; margin: 1.5rem 0 .8rem;
+  padding-bottom: 6px; border-bottom: 1px solid rgba(232,101,10,0.15);
+}
+
+.ap-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid rgba(232,101,10,0.15); }
+.ap-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.ap-table th {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1px;
+  color: #B08060; text-transform: uppercase; font-size: 0.72rem;
+  padding: 10px 14px; text-align: left;
+  background: rgba(232,101,10,0.08); border-bottom: 1px solid rgba(232,101,10,0.2);
+}
+.ap-table td {
+  padding: 11px 14px; color: #F5EDD8;
+  border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle;
+}
+.ap-table tr:last-child td { border: none; }
+.ap-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+.ap-badge {
+  display: inline-block; padding: 3px 10px; border-radius: 99px;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+}
+.ap-badge.pendiente { background: rgba(255,160,0,0.15); color: #FFA000; border: 1px solid rgba(255,160,0,0.3); }
+.ap-badge.activo    { background: rgba(76,175,80,0.15);  color: #4CAF50; border: 1px solid rgba(76,175,80,0.3); }
+
+.ap-btn {
+  padding: 6px 14px; border: none; border-radius: 7px; cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px;
+  transition: opacity 0.2s; margin: 0 2px;
+}
+.ap-btn:hover { opacity: 0.85; }
+.ap-btn.aprobar   { background: #4CAF50; color: #fff; }
+.ap-btn.desactivar { background: #E8650A; color: #fff; }
+
+.ap-empty {
+  text-align: center; padding: 3rem; color: #5C3010;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; letter-spacing: 1px;
+}
+
+.ap-refresh {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 7px 14px; color: #B08060;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+}
+.ap-refresh:hover { border-color: #E8650A; color: #FF8C2A; }
+
+
+.blocked-title, .blocked-text { display: none !important; }
+
+.blocked-title, .blocked-text { display: none !important; }
+#access-denied.show { display: flex !important; }
+.user-menu-mayor { display:flex;align-items:center;gap:8px; }
+.ap-open-btn { background:rgba(232,101,10,0.2);border:1px solid rgba(232,101,10,0.4);border-radius:8px;padding:6px 12px;color:#FF8C2A;font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all 0.2s; }
+.mayor-logout-btn { background:transparent;border:1px solid rgba(232,101,10,0.3);border-radius:8px;padding:6px 12px;color:#7A4A28;font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all 0.2s; }
+.mayor-logout-btn:hover { border-color:#E8650A;color:#E8650A; }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+<!-- HEADER -->
+<header>
+  <div class="logo-area">
+    <img src="Logo/LogoItem.png" alt="Logo Flama" class="logo-icon" style="object-fit:contain;">
+    <div class="logo-text">
+      <span>FLAMA</span>
+      <span>Distribuidora</span>
+    </div>
+  </div>
+
+  <div class="mayor-badge">🔥 <span>LISTA</span> MAYORISTA</div>
+
+  <!-- BOTÓN LOGIN — pendiente de implementar autenticación -->
+  <button class="login-btn" onclick="showLoginComingSoon()" title="Acceso con usuario y contraseña (próximamente)">
+    <span class="lock-icon">🔐</span>
+    <span>Iniciar sesión</span>
+  </button>
+
+  <button class="cart-btn" onclick="toggleCart()">
+    🛒 Pedido
+    <span class="cart-count" id="cartCount">0</span>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-mayor-tag">🔥 Canal Mayorista — Solo para revendedores</div>
+  <h1>LISTA<br><em>MAYORISTA</em></h1>
+  <p>Lion Rolling Circus · Precios especiales · Grand Bourg Zona Norte</p>
+</section>
+
+<!-- BANNER MÍNIMO -->
+<div class="min-banner">
+  Compra mínima: <span>$100.000 ARS</span> &nbsp;·&nbsp; Pedidos por WhatsApp · Solo revendedores habilitados
+</div>
+
+<!-- BÚSQUEDA -->
+<div class="search-bar">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Buscar producto, código ART..." oninput="doFilter()">
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters" id="filterBtns">
+  <button class="filter-btn active" onclick="setCat('all',this)">Todo</button>
+  <button class="filter-btn" onclick="setCat('Papeles',this)">📄 Papeles</button>
+  <button class="filter-btn" onclick="setCat('Filtros',this)">🔵 Filtros</button>
+  <button class="filter-btn" onclick="setCat('Blunts',this)">🌿 Blunts</button>
+  <button class="filter-btn" onclick="setCat('Celulosas',this)">🔮 Celulosas</button>
+  <button class="filter-btn" onclick="setCat('Conos',this)">🔺 Conos</button>
+  <button class="filter-btn" onclick="setCat('Bandejas',this)">🗂 Bandejas</button>
+  <button class="filter-btn" onclick="setCat('Accesorios',this)">⚙️ Accesorios</button>
+  <button class="filter-btn" onclick="setCat('BoobleHeads',this)">🎭 BoobleHeads</button>
+  <button class="filter-btn" onclick="setCat('Picadores',this)">⚡ Picadores</button>
+  <button class="filter-btn" onclick="setCat('Decoracion',this)">🎪 Decoracion</button>
+  <button class="filter-btn" onclick="setCat('Combos',this)">🎁 Combos</button>
+  <button class="filter-btn" onclick="setCat('Encendedor',this)">🔥 Encendedor</button>
+</div>
+
+<div class="results-bar" id="resultsBar"></div>
+
+<!-- CATALOG -->
+<div class="catalog" id="catalog"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">FLAMA</div>
+
+  <p>Flama Distribuidora · Grand Bourg, Zona Norte</p>
+
+  <!-- REDES -->
+  <div class="socials">
+    <a href="https://www.instagram.com/flamadistri.ar/" target="_blank" class="social-btn">
+      <!-- Instagram SVG -->
+      <svg viewBox="0 0 24 24">
+        <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.2A3.8 3.8 0 1 0 15.8 12 3.8 3.8 0 0 0 12 8.2zm0 6.3A2.5 2.5 0 1 1 14.5 12 2.5 2.5 0 0 1 12 14.5zm4.3-6.8a.9.9 0 1 1 .9-.9.9.9 0 0 1-.9.9z"/>
+      </svg>
+    </a>
+
+    <a href="https://wa.me/5491127882290" target="_blank" class="social-btn">
+      <!-- WhatsApp SVG -->
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l5-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-5.6c-.2-.1-1.2-.6-1.4-.7-.2-.1-.3-.1-.5.1s-.6.7-.8.9c-.1.1-.3.2-.5.1a6.6 6.6 0 0 1-2-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.3.1-.4l.3-.4.2-.3a.4.4 0 0 0 0-.4c0-.1-.5-1.3-.7-1.7-.2-.5-.4-.4-.5-.4h-.4a.8.8 0 0 0-.6.3 2.4 2.4 0 0 0-.8 1.8 4.2 4.2 0 0 0 .9 2.3 9.5 9.5 0 0 0 3.7 3.2 12.6 12.6 0 0 0 1.2.4 2.8 2.8 0 0 0 1.3.1 2.2 2.2 0 0 0 1.4-1c.2-.4.2-.8.1-.9-.1-.1-.2-.2-.4-.3z"/>
+      </svg>
+    </a>
+  </div>
+
+  <p style="margin-top:10px; font-size:0.75rem;">Todos los precios son en ARS · Mayorista</p>
+</footer>
+
+
+
+<!-- OVERLAY + DRAWER -->
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <h2>📋 Pedido <span class="drawer-title-badge">Mayorista</span></h2>
+    <button class="close-btn" onclick="toggleCart()">✕</button>
+  </div>
+
+  <!-- BARRA PROGRESO MÍNIMO -->
+  <div class="min-progress-wrap">
+    <div class="min-progress-label">
+      <span class="ml">Mínimo de compra</span>
+      <span class="mr" id="progTotal">$0 / $100.000</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+    <div id="minMsg" class="min-missing">⚠ Agregá productos para alcanzar el mínimo</div>
+  </div>
+
+  <div class="drawer-items" id="drawerItems"></div>
+
+  <div class="drawer-footer">
+    <div class="total-row">
+      <span class="total-label">Total pedido</span>
+      <span class="total-amount" id="drawerTotal">$0</span>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn" onclick="openModal()" disabled>
+      CONFIRMAR PEDIDO →
+    </button>
+  </div>
+</div>
+
+<!-- MODAL PEDIDO -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<!-- BOTÓN FLOTANTE -->
+<button class="help-fab" onclick="openHowTo()">
+  <span class="fab-icon">❓</span>
+  ¿Cómo comprar?
+  <span class="fab-dot"></span>
+</button>
+
+<!-- Modal Cómo Comprar -->
+Modal Cómo Comprar -->
+<div class="howto-overlay" id="howtoOverlay" onclick="handleHowToOverlayClick(event)">
+  <div class="howto-modal">
+
+    <div class="howto-header">
+      <div class="howto-header-text">
+        <h2>¿Cómo comprar?</h2>
+        <p>Todo lo que necesitás saber antes de hacer tu pedido</p>
+      </div>
+      <button class="howto-close" onclick="closeHowTo()">✕</button>
+    </div>
+
+    <div class="howto-steps">
+
+      <div class="howto-step" style="animation-delay:0.05s">
+        <div class="step-icon">🛒</div>
+        <div class="step-content">
+          <strong>1. Elegí tus productos</strong>
+          <p>Navegá el catálogo, usá los filtros por categoría y agregá lo que quieras al carrito. Podés sumar o restar cantidades sin problema.</p>
+        </div>
+      </div>
+
+      <div class="howto-step" style="animation-delay:0.1s">
+        <div class="step-icon">📋</div>
+        <div class="step-content">
+          <strong>2. Confirmá tu pedido</strong>
+          <p>Al finalizar, completás tu <b>nombre y WhatsApp</b>. Con eso nos llega tu pedido y nos ponemos en contacto a la brevedad.</p>
+        </div>
+      </div>
+
+      <div class="howto-step" style="animation-delay:0.15s">
+        <div class="step-icon">💬</div>
+        <div class="step-content">
+          <strong>3. Coordinamos por WhatsApp</strong>
+          <p>Te contactamos para confirmar disponibilidad, acordar el <b>envío o retiro</b>, y coordinar el pago. <b>No pagás nada hasta hablar con nosotros.</b></p>
+        </div>
+      </div>
+
+      <div class="howto-step" style="animation-delay:0.2s">
+        <div class="step-icon">💸</div>
+        <div class="step-content">
+          <strong>4. Pagás y recibís</strong>
+          <p>Aceptamos <b>transferencia bancaria y efectivo</b>. Una vez confirmado el pago, coordinamos la entrega o el envío.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FAQ accordion -->
+    <div class="howto-faq">
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          ¿Tengo que pagar antes de recibir el pedido?
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          No hacemos cobros automáticos. Primero hablamos por WhatsApp, confirmamos tu pedido y <b>acordamos el pago juntos</b>. Nada se cobra sin tu confirmación.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          ¿Cuánto cuesta el envío?
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          El costo de envío depende de tu localidad y el volumen del pedido. Te lo informamos por WhatsApp una vez que recibimos tu pedido. Para <b>Zona Norte GBA</b> solemos tener opciones muy convenientes.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          ¿En cuánto tiempo llega?
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          Los pedidos confirmados antes de las <b>12hs</b> generalmente se despachan el mismo día. Los tiempos de entrega varían según la zona, pero te damos seguimiento en todo momento.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          ¿Puedo retirar en persona?
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          ¡Sí! Podés retirar en <b>Grand Bourg, Malvinas Argentinas</b>. Coordinamos el horario por WhatsApp y listo.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          ¿Hay pedido mínimo?
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          Somos distribuidora mayorista, pero hablanos por WhatsApp y vemos la mejor opción para tu caso. Buscamos que puedas comprar lo que necesitás.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="howto-cta">
+      <p>¿Tenés alguna duda antes de pedir? <b>Escribinos directamente.</b></p>
+      <button class="howto-cta-btn" onclick="openWhatsApp()">
+        💬 HABLAR POR WHATSAPP
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ================================================================
+// PRODUCTOS MAYORISTAS
+// ================================================================
+// Productos cargados dinámicamente desde la API
+let PRODUCTS_MAYOR = [];
+
+async function loadProducts() {
+  try {
+    const res = await fetch('/api/productos');
+    if (!res.ok) throw new Error('Error al cargar productos');
+    const data = await res.json();
+
+    PRODUCTS_MAYOR = data.map(p => ({
+      id:         String(p.id),
+      name:       p.nombre,
+      cat:        p.categoria,
+      price:      Math.round(p.priceMayor || 0),
+      priceMinor: Math.round(p.priceMinor || 0),
+      unidCaja:   p.unidCaja || 0,
+      minCompra:  p.minCompra || 1,
+      img:        p.img || 'imagenes/placeholder.png',
+      stock:      p.stock || 0,
+    }));
+
+    console.log(`✅ ${PRODUCTS_MAYOR.length} productos cargados desde la base de datos`);
+    doFilter();
+    updateCartUI();
+  } catch(err) {
+    console.error('Error cargando productos:', err);
+    // Fallback: mostrar mensaje de error en el catálogo
+    const catalog = document.getElementById('catalog');
+    if (catalog) catalog.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#B08060;font-size:1.1rem;letter-spacing:1px;">Error al cargar productos. Verificá que el backend esté corriendo.</div>';
+  }
+}
+
+const MIN_ORDER = 100000;
+// Categorías fijas en HTML
+let cart = {};
+let quantities = {};
+let currentCat = 'Todo';
+let cartOpen = false;
+
+// ---- INIT FILTERS ----
+// Filtros fijos en HTML
+
+function setCat(cat, btn) {
+  currentCat = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  doFilter();
+}
+
+function doFilter() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const list = PRODUCTS_MAYOR.filter(p => {
+    const catOk = currentCat === 'Todo' || p.cat === currentCat;
+    const qOk = !q || p.name.toLowerCase().includes(q) || p.id.toString().includes(q);
+    return catOk && qOk;
+  });
+  document.getElementById('resultsBar').textContent = `Mostrando ${list.length} de ${PRODUCTS_MAYOR.length} productos`;
+  renderCatalog(list);
+}
+
+// ---- RENDER CATALOG ----
+function renderCatalog(list) {
+  const container = document.getElementById('catalog');
+  if (!list.length) {
+    container.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted);font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;letter-spacing:1px;">Sin resultados</div>`;
+    return;
+  }
+  container.innerHTML = list.map((p, i) => {
+    const qty = quantities[p.id] !== undefined ? quantities[p.id] : p.minCompra;
+    const canAdd = qty >= p.minCompra;
+    const hasCaja = p.unidCaja > 0;
+    const subtotal = qty * p.price;
+    return `
+    <div class="card" style="animation-delay:${Math.min(i,20)*0.035}s" data-cat="${p.cat}">
+      <div class="card-img" data-cat="${p.cat}">
+        <div class="card-img-inner">
+          <div class="card-loader">
+            <svg viewBox="0 0 100 100" class="smoke-icon">
+              <circle cx="50" cy="50" r="40" class="circle"/>
+              <line x1="30" y1="60" x2="65" y2="60" class="joint"/>
+              <path d="M65 50 C70 40, 60 35, 65 25" class="smoke"/>
+            </svg>
+          </div>
+          <img src="${p.img}" alt="${p.name}" class="product-img">
+        </div>
+        <span class="card-badge" data-cat="${p.cat}">${p.cat}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">${p.cat}</div>
+        <div class="card-name" title="${p.name}">${p.name}</div>
+        <div class="card-art">ART ${p.id}</div>
+        ${p.desc ? `<div class="card-desc">${p.desc}</div>` : ''}
+        <div class="card-tags">
+          <span class="tag tag-min">Mín. ${p.minCompra} un.</span>
+          ${hasCaja ? `<span class="tag tag-caja">Caja x${p.unidCaja}</span>` : ''}
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="price"><span>$</span>${p.price.toLocaleString('es-AR')}<small style="font-size:.7rem;color:var(--text-muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;"> /un</small></div>
+        <div></div>
+      </div>
+      <div style="padding: 0 1.2rem 1.2rem;">
+        <div class="card-subtotal" id="sub-${p.id}">${qty > 0 ? `Subtotal: $${subtotal.toLocaleString('es-AR')}` : ''}</div>
+        <div class="qty-controls">
+          <button class="qty-btn-card" onclick="changeQty('${p.id}',-1)">−</button>
+          <span class="qty-num-card" id="qty-${p.id}">${qty}</span>
+          <button class="qty-btn-card" onclick="changeQty('${p.id}',1)">+</button>
+          ${hasCaja ? `<button class="caja-btn" onclick="addCaja('${p.id}')" title="Sumar 1 caja (${p.unidCaja} un.)">📦 Caja</button>` : ''}
+        </div>
+        <button class="add-btn" id="addbtn-${p.id}" onclick="addToCart('${p.id}')" ${!canAdd?'disabled':''}>
+          ${canAdd ? '+ AGREGAR AL PEDIDO' : `Mín. ${p.minCompra} un.`}
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Lazy load images
+  setTimeout(() => {
+    document.querySelectorAll('.product-img').forEach(img => {
+      const show = () => {
+        img.style.opacity = '1';
+        const loader = img.parentElement.querySelector('.card-loader');
+        if (loader) loader.style.display = 'none';
+      };
+      if (img.complete) show(); else img.onload = show;
+    });
+  }, 0);
+}
+
+// ---- QTY CONTROLS ----
+function changeQty(id, delta) {
+  const p = PRODUCTS_MAYOR.find(x => x.id === id);
+  const cur = quantities[id] !== undefined ? quantities[id] : p.minCompra;
+  const next = Math.max(0, cur + delta);
+  quantities[id] = next;
+  const qEl = document.getElementById('qty-' + id);
+  const sEl = document.getElementById('sub-' + id);
+  const bEl = document.getElementById('addbtn-' + id);
+  if (qEl) qEl.textContent = next;
+  if (sEl) sEl.textContent = next > 0 ? `Subtotal: $${(next * p.price).toLocaleString('es-AR')}` : '';
+  if (bEl) {
+    const ok = next >= p.minCompra;
+    bEl.disabled = !ok;
+    bEl.textContent = ok ? '+ AGREGAR AL PEDIDO' : `Mín. ${p.minCompra} un.`;
+  }
+}
+
+function addCaja(id) {
+  const p = PRODUCTS_MAYOR.find(x => x.id === id);
+  if (!p || !p.unidCaja) return;
+  const cur = quantities[id] !== undefined ? quantities[id] : p.minCompra;
+  quantities[id] = cur + p.unidCaja;
+  const qEl = document.getElementById('qty-' + id);
+  const sEl = document.getElementById('sub-' + id);
+  const bEl = document.getElementById('addbtn-' + id);
+  if (qEl) qEl.textContent = quantities[id];
+  if (sEl) sEl.textContent = `Subtotal: $${(quantities[id] * p.price).toLocaleString('es-AR')}`;
+  if (bEl) { bEl.disabled = false; bEl.textContent = '+ AGREGAR AL PEDIDO'; }
+}
+
+// ---- CART ----
+function addToCart(id) {
+  const p = PRODUCTS_MAYOR.find(x => x.id === id);
+  const qty = quantities[id] !== undefined ? quantities[id] : p.minCompra;
+  if (qty < p.minCompra) { showToast(`Mínimo ${p.minCompra} unidades`); return; }
+  cart[id] = (cart[id] || 0) + qty;
+  quantities[id] = p.minCompra;
+  const qEl = document.getElementById('qty-' + id);
+  const sEl = document.getElementById('sub-' + id);
+  if (qEl) qEl.textContent = p.minCompra;
+  if (sEl) sEl.textContent = `Subtotal: $${(p.minCompra * p.price).toLocaleString('es-AR')}`;
+  const bEl = document.getElementById('addbtn-' + id);
+  if (bEl) { bEl.disabled = p.minCompra < p.minCompra; }
+  updateCartUI();
+  const name = p.name.length > 28 ? p.name.substring(0,28)+'...' : p.name;
+  showToast(`${name} agregado 🔥`);
+  const c = document.getElementById('cartCount');
+  c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump');
+}
+
+function removeFromCart(id) {
+  delete cart[id];
+  updateCartUI();
+}
+
+function getTotal() {
+  return Object.entries(cart).reduce((s,[id,q]) => {
+    const p = PRODUCTS_MAYOR.find(x => x.id === id);
+    return s + (p ? p.price * q : 0);
+  }, 0);
+}
+
+function updateCartUI() {
+  const total = getTotal();
+  const items = Object.values(cart).reduce((a,b) => a+b, 0);
+  document.getElementById('cartCount').textContent = items;
+  document.getElementById('drawerTotal').textContent = '$' + total.toLocaleString('es-AR');
+  document.getElementById('progTotal').textContent = `$${total.toLocaleString('es-AR')} / $100.000`;
+
+  const pct = Math.min(100, (total / MIN_ORDER) * 100);
+  document.getElementById('progFill').style.width = pct + '%';
+  const msgEl = document.getElementById('minMsg');
+  const checkBtn = document.getElementById('checkoutBtn');
+
+  if (total >= MIN_ORDER) {
+    msgEl.className = 'min-ok';
+    msgEl.textContent = '✅ Mínimo alcanzado — podés confirmar el pedido';
+    checkBtn.disabled = false;
+    checkBtn.textContent = 'CONFIRMAR PEDIDO →';
+    checkBtn.style.fontSize = '';
+  } else {
+    const falta = MIN_ORDER - total;
+    msgEl.className = 'min-missing';
+    msgEl.textContent = `⚠ Faltán $${falta.toLocaleString('es-AR')} para el mínimo`;
+    checkBtn.disabled = true;
+    checkBtn.textContent = `FALTA $${falta.toLocaleString('es-AR')} PARA EL MÍNIMO`;
+    checkBtn.style.fontSize = '0.85rem';
+  }
+
+  const cont = document.getElementById('drawerItems');
+  if (!items) {
+    cont.innerHTML = `<div class="empty-cart"><div class="icon">📋</div><p>Agregá productos al pedido</p></div>`;
+    return;
+  }
+  cont.innerHTML = Object.entries(cart).map(([id,q]) => {
+    const p = PRODUCTS_MAYOR.find(x => x.id === id);
+    if (!p) return '';
+    return `<div class="cart-item">
+      <img class="ci-img-mayor" src="${p.img}" onerror="this.style.background='#3D1F08'" alt="${p.name}">
+      <div class="cart-item-info">
+        <div class="cart-item-name" title="${p.name}">${p.name.length>35?p.name.substring(0,35)+'...':p.name}</div>
+        <div style="font-size:.72rem;color:#7A4A28;">ART ${p.id} · ${q} un. · $${p.price.toLocaleString('es-AR')}/u</div>
+        <div class="cart-item-price">$${(p.price*q).toLocaleString('es-AR')}</div>
+      </div>
+      <button class="ci-remove" onclick="removeFromCart('${id}')" title="Quitar">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function toggleCart() {
+  cartOpen = !cartOpen;
+  document.getElementById('drawer').classList.toggle('open', cartOpen);
+  document.getElementById('overlay').classList.toggle('open', cartOpen);
+}
+
+// ---- MODAL PEDIDO MAYORISTA ----
+function buildDetailTable() {
+  const rows = Object.entries(cart).map(([id,q]) => {
+    const p = PRODUCTS_MAYOR.find(x => x.id === id);
+    const sub = p.price * q;
+    return `<tr>
+      <td style="color:#B08060;font-size:.7rem;">ART ${p.id}</td>
+      <td>${p.name}</td>
+      <td style="text-align:center;font-weight:700;">${q}</td>
+      <td style="text-align:right;color:#B08060;">$${p.price.toLocaleString('es-AR')}</td>
+      <td class="td-total">$${sub.toLocaleString('es-AR')}</td>
+    </tr>`;
+  }).join('');
+  return rows;
+}
+
+function openModal() {
+  if (getTotal() < MIN_ORDER) { showToast('Completá el mínimo de compra'); return; }
+  const total = getTotal();
+  const itemCount = Object.keys(cart).length;
+  const totalUnits = Object.values(cart).reduce((a,b)=>a+b,0);
+
+  document.getElementById('modalContent').innerHTML = `
+    <div class="modal-mayorista-header">
+      <div class="icon">🏭</div>
+      <div>
+        <h3>PEDIDO MAYORISTA</h3>
+        <p>Flama Distribuidora · ${itemCount} productos · ${totalUnits} unidades totales</p>
+      </div>
+    </div>
+
+    <div class="order-summary">
+      <h3>Detalle completo del pedido</h3>
+      <div style="overflow-x:auto;">
+        <table class="order-detail-table">
+          <thead>
+            <tr>
+              <th>ART</th>
+              <th>Producto</th>
+              <th style="text-align:center;">Cant.</th>
+              <th style="text-align:right;">P. Unit.</th>
+              <th style="text-align:right;">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>${buildDetailTable()}</tbody>
+        </table>
+      </div>
+      <div class="order-total-row" style="margin-top:.8rem;">
+        <span>TOTAL DEL PEDIDO</span>
+        <span>$${total.toLocaleString('es-AR')}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Empresa / Nombre *</label>
+      <input type="text" id="f_nombre" placeholder="Kiosco García / Juan García">
+    </div>
+    <div class="form-group">
+      <label>WhatsApp *</label>
+      <input type="tel" id="f_tel" placeholder="+54 11 1234-5678">
+    </div>
+    <div class="form-group">
+      <label>Localidad / Dirección</label>
+      <input type="text" id="f_loc" placeholder="Grand Bourg, Malvinas Argentinas">
+    </div>
+    <div class="form-group">
+      <label>Notas</label>
+      <textarea id="f_notas" placeholder="Horario de entrega, método de pago preferido, etc."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-send" id="btnSend" onclick="submitOrder()">ENVIAR PEDIDO 🔥</button>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+// ---- SUBMIT ----
+async function submitOrder() {
+  const nombre = document.getElementById('f_nombre').value.trim();
+  const tel = document.getElementById('f_tel').value.trim();
+  const loc = document.getElementById('f_loc').value.trim();
+  const notas = document.getElementById('f_notas').value.trim();
+
+  if (!nombre || !tel) { showToast('Completá nombre y teléfono'); return; }
+
+  const btn = document.getElementById('btnSend');
+  btn.disabled = true; btn.textContent = 'Enviando...';
+
+  const total = getTotal();
+  const totalUnits = Object.values(cart).reduce((a,b)=>a+b,0);
+
+  const itemLines = Object.entries(cart).map(([id,q]) => {
+    const p = PRODUCTS_MAYOR.find(x => x.id === id);
+    return `[ART ${p.id}] ${p.name}\n   Cantidad: ${q} un. | P.Unit: $${p.price.toLocaleString('es-AR')} | Subtotal: $${(p.price*q).toLocaleString('es-AR')}`;
+  }).join('\n\n');
+
+  const orderText = `
+════════════════════════════════════════
+🏭 PEDIDO MAYORISTA — FLAMA DISTRIBUIDORA
+════════════════════════════════════════
+Cliente/Empresa : ${nombre}
+WhatsApp        : ${tel}
+Localidad       : ${loc || '—'}
+Fecha           : ${new Date().toLocaleString('es-AR')}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DETALLE DEL PEDIDO (${Object.keys(cart).length} productos / ${totalUnits} unidades)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${itemLines}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TOTAL: $${total.toLocaleString('es-AR')} ARS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Notas: ${notas || '—'}
+
+════════════════════════════════════════
+Pedido recibido desde: flamadistri.ar/mayorista
+════════════════════════════════════════`.trim();
+
+  const EMAILJS_SERVICE_ID  = 'FlamaService';
+  const EMAILJS_TEMPLATE_ID = 'template_7zitmpg';
+  const EMAILJS_PUBLIC_KEY  = '3_tYKyvFQhEdVojwf';
+  const DEST_EMAIL          = 'flamadistri0@gmail.com';
+
+  try {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      to_email: DEST_EMAIL,
+      subject: `🏭 PEDIDO MAYORISTA de ${nombre} — $${total.toLocaleString('es-AR')}`,
+      message: orderText,
+      from_name: nombre,
+      from_phone: tel,
+    });
+  } catch(err) {
+    console.warn('EmailJS:', err);
+  }
+
+  cart = {};
+  updateCartUI();
+  document.getElementById('modalContent').innerHTML = `
+    <div class="success-screen">
+      <div class="success-icon">🔥</div>
+      <h2>¡Pedido Enviado!</h2>
+      <p>Gracias <strong>${nombre}</strong>, recibimos tu pedido mayorista por <strong>$${total.toLocaleString('es-AR')}</strong>.<br><br>
+      Nos contactamos a la brevedad por WhatsApp para coordinar entrega y condiciones de pago.</p>
+      <button class="btn-close-success" onclick="closeModal()">SEGUIR COMPRANDO →</button>
+    </div>
+  `;
+}
+
+// ---- LOGIN PLACEHOLDER ----
+function showLoginComingSoon() {
+  showToast('🔐 Login en desarrollo — próximamente');
+}
+
+// ---- TOAST ----
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2700);
+}
+
+function openHowTo() {
+  document.getElementById('howtoOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeHowTo() {
+  document.getElementById('howtoOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleHowToOverlayClick(e) {
+  if (e.target === document.getElementById('howtoOverlay')) closeHowTo();
+}
+
+function toggleFaq(item) {
+  const isOpen = item.classList.contains('open');
+  // cerrar todos
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  // abrir el clickeado si no estaba abierto
+  if (!isOpen) item.classList.add('open');
+}
+
+function openWhatsApp() {
+  // Reemplazá 5491112345678 con el número de WhatsApp de Flama
+  const numero = '5491127882290';
+  const mensaje = encodeURIComponent('Hola Flama! Quería consultar antes de hacer un pedido 👋');
+  window.open(`https://wa.me/${numero}?text=${mensaje}`, '_blank');
+}
+  
+  
+
+
+
+// ================================================================
+// AUTH + SESSION — Flama Mayorista
+// ================================================================
+const API_URL = 'http://localhost:3001';
+let currentUser = null;
+
+(function initSession() {
+  const token = localStorage.getItem('flama_token');
+  const user  = localStorage.getItem('flama_user');
+  if (token && user) {
+    try {
+      currentUser = JSON.parse(user);
+      showSiteContent();
+      updateMayoristaHeader(currentUser);
+      enrichUserData();
+    } catch(e) {
+      clearSession();
+      showAccessDenied();
+    }
+  } else {
+    showAccessDenied();
+  }
+})();
+
+function showSiteContent() {
+  const denied = document.getElementById('access-denied');
+  if (denied) { denied.classList.remove('show'); denied.style.display = 'none'; }
+  const header = document.querySelector('header');
+  if (header) header.style.display = '';
+  document.querySelectorAll('.hero,.min-banner,.search-bar,.filters,.results-bar,.catalog,footer,.help-fab').forEach(el => {
+    if (el) el.style.display = '';
+  });
+  loadProducts();
+}
+
+function showAccessDenied() {
+  const header = document.querySelector('header');
+  if (header) header.style.display = 'none';
+  document.querySelectorAll('.hero,.min-banner,.search-bar,.filters,.results-bar,.catalog,footer,.help-fab').forEach(el => {
+    if (el) el.style.display = 'none';
+  });
+  const denied = document.getElementById('access-denied');
+  if (denied) { denied.style.display = 'flex'; denied.classList.add('show'); }
+  else window.location.href = 'index.html';
+}
+
+function onLoginSuccess(user, isNewLogin) {
+  currentUser = user;
+  showSiteContent();
+  updateMayoristaHeader(user);
+  closeLoginModal();
+  if (!sessionStorage.getItem('flama_ok')) sessionStorage.setItem('flama_ok', '1');
+  if (isNewLogin) showToast('¡Bienvenido, ' + user.nombre + '! 🔥');
+}
+
+function updateMayoristaHeader(user) {
+  if (document.querySelector('.user-menu-mayor')) return;
+  const target = document.querySelector('.login-btn') ||
+                 document.querySelector('[onclick*="showLoginComingSoon"]') ||
+                 document.querySelector('[onclick*="openLoginModal"]');
+  if (!target) return;
+  target.outerHTML = `
+    <div class="user-menu-mayor">
+      <div style="line-height:1.1;">
+        <div style="font-size:.9rem;font-weight:700;color:#FF8C2A;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${user.nombre}</div>
+        <div style="font-size:.65rem;letter-spacing:2px;color:#7A4A28;text-transform:uppercase;">${user.rol}</div>
+      </div>
+      ${user.rol === 'admin' ? '<button class="ap-open-btn" onclick="openAdminPanel()">Panel Admin</button>' : ''}
+      <button class="mayor-logout-btn" onclick="mayorLogout()">Salir</button>
+    </div>`;
+}
+
+function mayorLogout() {
+  clearSession();
+  currentUser = null;
+  showToast('Sesión cerrada');
+  setTimeout(() => { window.location.href = 'index.html'; }, 900);
+}
+
+function clearSession() {
+  localStorage.removeItem('flama_token');
+  localStorage.removeItem('flama_refresh_token');
+  localStorage.removeItem('flama_user');
+}
+
+function getAuthHeader() {
+  return { 'Authorization': 'Bearer ' + localStorage.getItem('flama_token') };
+}
+
+async function enrichUserData() {
+  const token = localStorage.getItem('flama_token');
+  if (!token || !currentUser) return;
+  try {
+    const res = await fetch('/me', { headers: getAuthHeader() });
+    if (!res.ok) return;
+    const data = await res.json();
+    currentUser = { ...currentUser, ...data };
+    localStorage.setItem('flama_user', JSON.stringify(currentUser));
+  } catch(e) {}
+}
+
+function showLoginComingSoon() { openLoginModal(); }
+
+
+// ================================================================
+// LOGIN MODAL FUNCTIONS
+// ================================================================
+function openLoginModal() {
+  const overlay = document.getElementById('loginOverlay');
+  if (overlay) { overlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  else window.location.href = 'index.html';
+}
+
+function closeLoginModal() {
+  const overlay = document.getElementById('loginOverlay');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleLoginOverlayClick(e) {
+  if (e.target === document.getElementById('loginOverlay')) closeLoginModal();
+}
+
+async function submitLogin(e) {
+  e.preventDefault();
+  const email    = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const btn      = document.getElementById('loginBtn');
+  const errEl    = document.getElementById('loginError');
+  btn.classList.add('loading'); btn.disabled = true;
+  errEl.classList.remove('show');
+  try {
+    const res = await fetch(API_URL + '/auth/login', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      showLoginError(res.status === 403
+        ? 'Tu cuenta está pendiente de aprobación.'
+        : (data.error || 'Credenciales incorrectas'));
+      return;
+    }
+    localStorage.setItem('flama_token', data.token);
+    localStorage.setItem('flama_refresh_token', data.refresh_token || '');
+    localStorage.setItem('flama_user', JSON.stringify(data.user));
+    currentUser = data.user;
+    onLoginSuccess(data.user, true);
+  } catch(err) {
+    demoLogin(email, password);
+  } finally {
+    btn.classList.remove('loading'); btn.disabled = false;
+  }
+}
+
+function demoLogin(email, password) {
+  const demos = [
+    {email:'admin@flamadistri.ar', password:'Flama2024!', rol:'admin', nombre:'Admin Flama'},
+    {email:'mayorista@demo.com',   password:'Demo1234!',  rol:'mayorista', nombre:'Mayorista Demo'},
+  ];
+  const found = demos.find(u => u.email === email && u.password === password);
+  if (!found) { showLoginError('Credenciales incorrectas'); return; }
+  const user = {id:1, nombre:found.nombre, email:found.email, rol:found.rol};
+  localStorage.setItem('flama_user', JSON.stringify(user));
+  localStorage.setItem('flama_token', 'demo_token');
+  currentUser = user;
+  onLoginSuccess(user, true);
+}
+
+function showLoginError(msg) {
+  const el = document.getElementById('loginError');
+  if (el) { el.textContent = '⚠ ' + msg; el.classList.add('show'); }
+}
+
+// ================================================================
+// PANEL ADMIN
+// ================================================================
+function openAdminPanel() {
+  if (!currentUser || currentUser.rol !== 'admin') {
+    showToast('Solo el admin puede acceder');
+    return;
+  }
+  const panel = document.getElementById('admin-panel');
+  if (panel) { panel.classList.add('show'); loadAdminData(); }
+}
+
+function closeAdminPanel() {
+  const panel = document.getElementById('admin-panel');
+  if (panel) panel.classList.remove('show');
+}
+
+async function loadAdminData() {
+  const pb = document.getElementById('apPendBody');
+  const ab = document.getElementById('apActivosBody');
+  if (pb) pb.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:1rem;color:#B08060;">Cargando...</td></tr>';
+  if (ab) ab.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:1rem;color:#B08060;">Cargando...</td></tr>';
+
+  try {
+    const res = await fetch(API_URL + '/admin/usuarios', { headers: getAuthHeader() });
+    if (!res.ok) {
+      if (pb) pb.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:1rem;color:#FF6B35;">Error al cargar usuarios.</td></tr>';
+      return;
+    }
+    const users = await res.json();
+    const mayoristas = users.filter(u => u.rol === 'mayorista');
+    const pendientes = mayoristas.filter(u => !u.activo);
+    const activos    = mayoristas.filter(u => u.activo);
+
+    const sp = document.getElementById('apStatPend');    if(sp) sp.textContent = pendientes.length;
+    const sa = document.getElementById('apStatActivos'); if(sa) sa.textContent = activos.length;
+    const st = document.getElementById('apStatTotal');   if(st) st.textContent = mayoristas.length;
+
+    if (pb) {
+      pb.innerHTML = !pendientes.length
+        ? '<tr><td colspan="6" style="text-align:center;padding:2rem;color:#5C3010;">No hay solicitudes pendientes 🎉</td></tr>'
+        : pendientes.map(u => `
+          <tr id="ap-row-${u.id}">
+            <td style="font-weight:600;">${u.nombre}</td>
+            <td style="color:#B08060;font-size:.82rem;">${u.email}</td>
+            <td>${u.telefono || '—'}</td>
+            <td>${u.localidad || '—'}</td>
+            <td style="color:#7A4A28;font-size:.78rem;">${new Date(u.creado_en).toLocaleDateString('es-AR')}</td>
+            <td><button class="ap-btn aprobar" onclick="aprobarUsuario(${u.id},'${u.nombre}','${u.email}','${u.telefono||''}')">✅ Aprobar</button></td>
+          </tr>`).join('');
+    }
+
+    if (ab) {
+      ab.innerHTML = !activos.length
+        ? '<tr><td colspan="6" style="text-align:center;padding:2rem;color:#5C3010;">No hay clientes activos aún</td></tr>'
+        : activos.map(u => `
+          <tr id="ap-row-${u.id}">
+            <td style="font-weight:600;">${u.nombre}</td>
+            <td style="color:#B08060;font-size:.82rem;">${u.email}</td>
+            <td>${u.telefono || '—'}</td>
+            <td>${u.localidad || '—'}</td>
+            <td><span style="background:rgba(76,175,80,0.15);color:#4CAF50;border:1px solid rgba(76,175,80,0.3);padding:3px 10px;border-radius:99px;font-size:.7rem;font-weight:700;">Activo</span></td>
+            <td><button class="ap-btn desactivar" onclick="desactivarUsuario(${u.id})">🚫 Desactivar</button></td>
+          </tr>`).join('');
+    }
+  } catch(err) {
+    if (pb) pb.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:1rem;color:#FF6B35;">Error de conexión.</td></tr>';
+  }
+}
+
+async function aprobarUsuario(id, nombre, email, tel) {
+  try {
+    await fetch(API_URL + '/admin/usuarios/' + id + '/toggle', {
+      method: 'PUT', headers: getAuthHeader()
+    });
+    sendWelcomeMail(nombre, email, tel);
+    const row = document.getElementById('ap-row-' + id);
+    if (row) row.remove();
+    showToast('✅ ' + nombre + ' aprobado — mail enviado');
+    setTimeout(loadAdminData, 500);
+  } catch(err) { showToast('Error al aprobar'); }
+}
+
+async function desactivarUsuario(id) {
+  try {
+    await fetch(API_URL + '/admin/usuarios/' + id + '/toggle', {
+      method: 'PUT', headers: getAuthHeader()
+    });
+    showToast('Usuario desactivado');
+    loadAdminData();
+  } catch(err) { showToast('Error al desactivar'); }
+}
+
+function sendWelcomeMail(nombre, email, tel) {
+  const EMAILJS_SERVICE_ID  = 'FlamaService';
+  const EMAILJS_TEMPLATE_ID = 'template_7zitmpg';
+  const EMAILJS_PUBLIC_KEY  = '3_tYKyvFQhEdVojwf';
+  if (typeof emailjs === 'undefined') return;
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+    to_email: email,
+    subject: '🔥 ¡Tu cuenta mayorista en Flama fue aprobada!',
+    message: 'Hola ' + nombre + ',\n\n¡Tu cuenta fue aprobada! Ya podés ingresar al catálogo mayorista.\n\nSaludos,\nFlama Distribuidora 🔥',
+    from_name: 'Flama Distribuidora',
+    from_phone: '+54 9 11 2788-2290',
+  }).catch(err => console.warn('Welcome mail error:', err));
+}
+
+</script>
+
+<!-- PANTALLA ACCESO DENEGADO -->
+<div id="access-denied">
+  <div class="ad-icon">🔐</div>
+  <div class="ad-title">Acceso Restringido</div>
+  <p class="ad-sub">El catálogo mayorista es exclusivo para clientes registrados.<br>Iniciá sesión para ver precios y realizar pedidos.</p>
+  <button class="ad-login-btn" onclick="openLoginModal()">INICIAR SESIÓN</button>
+</div>
+
+<!-- MODAL LOGIN -->
+<div class="login-overlay" id="loginOverlay" onclick="handleLoginOverlayClick(event)">
+  <div class="login-card">
+    <button class="login-close" onclick="closeLoginModal()">✕</button>
+    <svg class="login-flame-svg" viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="50" r="46" stroke="#E8650A" stroke-width="3" opacity=".6"/>
+      <path d="M50 82C50 82 26 66 26 44 26 30 37 19 50 17 43 29 45 39 53 43 50 34 55 26 64 24 73 29 75 43 70 54 67 61 60 68 50 82Z" fill="url(#lf1)"/>
+      <defs>
+        <linearGradient id="lf1" x1="50" y1="82" x2="50" y2="17" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#C4500A"/><stop offset="100%" stop-color="#FF8C2A"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <div style="text-align:center;">
+      <div class="login-portal-badge">🔐 Portal Mayorista</div>
+      <h2 class="login-title">INICIAR SESIÓN</h2>
+      <p class="login-sub">Acceso exclusivo para revendedores habilitados</p>
+    </div>
+    <form class="login-form" onsubmit="submitLogin(event)">
+      <div class="lf-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="tu@email.com" required autocomplete="email">
+      </div>
+      <div class="lf-group">
+        <label>Contraseña</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <div class="login-error" id="loginError"></div>
+      <button type="submit" class="login-submit" id="loginBtn">
+        <span class="btn-label">INGRESAR →</span>
+        <div class="spin"></div>
+      </button>
+    </form>
+    <p style="text-align:center;font-size:.78rem;color:#5C3010;margin-top:1.2rem;font-family:'Barlow Condensed',sans-serif;">
+      ¿No tenés acceso? Contactanos por
+      <a href="https://wa.me/5491127882290" target="_blank" style="color:#FF8C2A;">WhatsApp</a>
+    </p>
+  </div>
+</div>
+
+
+<!-- ===== PANEL ADMIN ===== -->
+<div id="admin-panel">
+  <div class="ap-wrap">
+    <div class="ap-header">
+      <div class="ap-title">🔥 Panel Admin — Flama Distribuidora</div>
+      <div style="display:flex;gap:8px;">
+        <button class="ap-refresh" onclick="loadAdminData()">↻ Actualizar</button>
+        <button class="ap-back" onclick="closeAdminPanel()">← Volver al catálogo</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="ap-stats">
+      <div class="ap-stat">
+        <div class="ap-stat-num" id="apStatPend">—</div>
+        <div class="ap-stat-lbl">Pendientes</div>
+      </div>
+      <div class="ap-stat">
+        <div class="ap-stat-num" id="apStatActivos">—</div>
+        <div class="ap-stat-lbl">Activos</div>
+      </div>
+      <div class="ap-stat">
+        <div class="ap-stat-num" id="apStatTotal">—</div>
+        <div class="ap-stat-lbl">Total usuarios</div>
+      </div>
+    </div>
+
+    <!-- Pendientes -->
+    <div class="ap-section-title">⏳ Pendientes de aprobación</div>
+    <div class="ap-table-wrap">
+      <table class="ap-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>WhatsApp</th>
+            <th>Localidad</th>
+            <th>Registrado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="apPendBody">
+          <tr><td colspan="6" class="ap-empty">Cargando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Activos -->
+    <div class="ap-section-title" style="margin-top:2rem;">✅ Clientes activos</div>
+    <div class="ap-table-wrap">
+      <table class="ap-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>WhatsApp</th>
+            <th>Localidad</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="apActivosBody">
+          <tr><td colspan="6" class="ap-empty">Cargando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
