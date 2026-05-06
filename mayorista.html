@@ -1769,7 +1769,7 @@ let PRODUCTS_MAYOR = [];
 
 async function loadProducts() {
   try {
-    const res = await fetch('/api/productos');
+    const res = await fetch(API_URL + '/api/productos');
     if (!res.ok) throw new Error('Error al cargar productos');
     const data = await res.json();
 
@@ -2302,7 +2302,7 @@ async function enrichUserData() {
   const token = localStorage.getItem('flama_token');
   if (!token || !currentUser) return;
   try {
-    const res = await fetch('/me', { headers: getAuthHeader() });
+    const res = await fetch(API_URL + '/me', { headers: getAuthHeader() });
     if (!res.ok) return; 
     const data = await res.json();
     currentUser = { ...currentUser, ...data };
