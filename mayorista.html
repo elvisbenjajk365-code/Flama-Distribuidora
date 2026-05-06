@@ -2212,7 +2212,7 @@ function openWhatsApp() {
 // ================================================================
 // AUTH + SESSION — Flama Mayorista
 // ================================================================
-const API_URL = 'http://localhost:3001';
+const API_URL = 'https://flama-distribuidora-production.up.railway.app';
 let currentUser = null;
 
 (function initSession() {
@@ -2303,7 +2303,7 @@ async function enrichUserData() {
   if (!token || !currentUser) return;
   try {
     const res = await fetch('/me', { headers: getAuthHeader() });
-    if (!res.ok) return;
+    if (!res.ok) return; 
     const data = await res.json();
     currentUser = { ...currentUser, ...data };
     localStorage.setItem('flama_user', JSON.stringify(currentUser));
