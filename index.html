@@ -1841,7 +1841,7 @@ async function submitLogin(e) {
   btn.classList.add('loading'); btn.disabled = true;
 
   try {
-    const res = await fetch('/auth/login', {
+    const res = await fetch(API_URL + '/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password: pass }),
